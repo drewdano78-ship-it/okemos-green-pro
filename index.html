@@ -624,7 +624,7 @@
             </div>
             <div class="form-group">
               <label>Service Address</label>
-              <input type="text" id="address" placeholder="123 Main St, Springfield, IL" />
+              <input type="text" id="address" placeholder="123 Main St, Okemos, MI" />
             </div>
             <div class="form-group">
               <label>Service Type</label>
@@ -773,7 +773,7 @@
         <p>"GreenCut Pro transformed my yard in a single afternoon. The crew was on time, professional, and my lawn has never looked better. Booking online was so easy!"</p>
         <div class="reviewer">
           <div class="reviewer-avatar">MR</div>
-          <div><div class="reviewer-name">Mike R.</div><div class="reviewer-loc">Springfield, IL</div></div>
+          <div><div class="reviewer-name">Mike R.</div><div class="reviewer-loc">Okemos, MI</div></div>
         </div>
       </div>
       <div class="review-card">
@@ -799,7 +799,7 @@
 <!-- FOOTER -->
 <footer>
   <span class="logo">GreenCut<span style="color:var(--cream)">Pro</span></span>
-  <p>📍 Serving Springfield & Surrounding Areas &nbsp;|&nbsp; 📞 <a href="tel:5550001234">(555) 000-1234</a></p>
+  <p>📍 Serving Okemos, Wardcliff &amp; Surrounding Areas &nbsp;|&nbsp; 📞 <a href="tel:5550001234">(555) 000-1234</a></p>
   <p style="margin-top:0.5rem; font-size:0.78rem; opacity:0.5;">© 2025 GreenCut Pro. All rights reserved.</p>
 </footer>
 
@@ -1037,7 +1037,7 @@ function resetForm() {
         <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);margin-bottom:1rem;">
           <label style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-dark);margin-bottom:0.5rem;">Check Your Zip Code</label>
           <div style="display:flex;gap:0.5rem;">
-            <input type="text" id="zip-input" placeholder="e.g. 62701" maxlength="5" style="flex:1;padding:0.65rem 1rem;border:2px solid var(--tan);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;" oninput="checkZip()" />
+            <input type="text" id="zip-input" placeholder="e.g. 48864" maxlength="5" style="flex:1;padding:0.65rem 1rem;border:2px solid var(--tan);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;" oninput="checkZip()" />
           </div>
           <div id="zip-result" style="margin-top:0.75rem;font-size:0.875rem;min-height:1.5rem;"></div>
         </div>
@@ -1068,11 +1068,13 @@ function resetForm() {
               <text x="12" y="17" text-anchor="middle" fill="white" font-size="14">🌿</text>
             </g>
             <!-- Area labels -->
-            <text x="200" y="230" text-anchor="middle" fill="#6b0f1a" font-size="11" font-weight="700" font-family="DM Sans,sans-serif">Springfield (Core)</text>
-            <text x="310" y="120" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Oak Park</text>
-            <text x="90" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Chatham</text>
-            <text x="320" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Sherman</text>
-            <text x="80" y="110" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Auburn</text>
+            <text x="200" y="195" text-anchor="middle" fill="#6b0f1a" font-size="12" font-weight="700" font-family="DM Sans,sans-serif">Wardcliff</text>
+            <text x="200" y="230" text-anchor="middle" fill="#6b0f1a" font-size="10" font-family="DM Sans,sans-serif">Okemos</text>
+            <text x="310" y="120" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Haslett</text>
+            <text x="90" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Holt</text>
+            <text x="320" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Mason</text>
+            <text x="80" y="110" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">East Lansing</text>
+            <text x="80" y="170" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Lansing</text>
           </svg>
         </div>
       </div>
@@ -1233,7 +1235,7 @@ function resetForm() {
           <div>
             <div style="font-weight:700;color:#1a1a2e;font-size:0.9rem;">🌿 Lawn Mowing + 🐾 Dog Waste</div>
             <div style="font-size:0.8rem;color:#6b7a99;margin-top:0.25rem;">Saturday, March 8 at 10:00 AM</div>
-            <div style="font-size:0.8rem;color:#6b7a99;">142 Elm St, Springfield</div>
+            <div style="font-size:0.8rem;color:#6b7a99;">142 Elm St, Okemos</div>
           </div>
           <span style="background:#fff3e0;color:#e65100;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;white-space:nowrap;">In 8 days</span>
         </div>
@@ -1397,10 +1399,10 @@ function resetForm() {
 
 // ── ZIP CHECKER ──
 const serviceZips = {
-  '62701':'Springfield (Downtown)','62702':'Springfield (North)','62703':'Springfield (South)',
-  '62704':'Springfield (West)','62705':'Springfield (Central)','62706':'Springfield (East)',
-  '62707':'Chatham','62708':'Sherman','62711':'Rochester','62712':'Riverton',
-  '62769':'Auburn','62801':'Carlisle','62234':'Collinsville'
+  '48864':'Okemos (Wardcliff)','48823':'East Lansing','48824':'East Lansing (MSU)',
+  '48840':'Haslett','48842':'Holt','48854':'Mason','48910':'Lansing (South)',
+  '48911':'Lansing (Southwest)','48912':'Lansing (East)','48906':'Lansing (North)',
+  '48917':'Lansing (West)','48837':'Grand Ledge','48808':'Bath'
 };
 const zipList = document.getElementById('zip-list');
 if(zipList) Object.entries(serviceZips).slice(0,10).forEach(([z,n]) => {
@@ -1422,7 +1424,7 @@ window.checkZip = function(){
     {q:'How much does lawn mowing cost?', a:'Our lawn mowing service starts at $45 and includes edging and bagging clippings. Pricing varies based on lawn size — upload photos when booking for an accurate quote.'},
     {q:'How does the dog waste subscription work?', a:'Subscribe for weekly dog waste cleanup at $18/visit, billed monthly. Cancel anytime with no fees. We come the same day each week, and you'll receive a photo confirmation that your gate was latched after every visit.'},
     {q:'Can I bundle lawn mowing with dog waste cleanup?', a:'Absolutely! Our Lawn + Dog Waste Bundle starts at $55 for a one-time visit, or $70/visit on a weekly subscription — saving you money vs. booking separately.'},
-    {q:'What areas do you serve?', a:'We serve Springfield and surrounding communities including Chatham, Sherman, Rochester, Riverton, and more. Check the service area map above or enter your zip code to confirm we cover your neighborhood.'},
+    {q:'What areas do you serve?', a:'We serve the Wardcliff neighborhood in Okemos and surrounding communities including East Lansing, Haslett, Holt, Mason, Lansing, and more. Check the service area map above or enter your zip code to confirm we cover your neighborhood.'},
     {q:'How do I know the job was completed?', a:'After every service, your crew takes before & after photos, completes a checklist (including gate-locked confirmation for dog waste jobs), and sends you a text and email with the photos and a summary report.'},
     {q:'What payment methods do you accept?', a:'We accept all major credit cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay. Payments are processed securely through Stripe and are only charged after the service is complete.'},
     {q:'How do I reschedule or cancel a booking?', a:'Log in to your customer account to reschedule or cancel upcoming services. You can also call us at (555) 000-1234. We ask for at least 24 hours notice for cancellations.'},
@@ -1814,19 +1816,19 @@ window.sendSMSBlast = function(){
       <div id="job-list">
         <div class="job-card" onclick="openJob(0)">
           <div class="job-card-header">
-            <div><div class="job-name">Michael Roberts</div><div class="job-service">🌿 Lawn Mowing + 🐾 Dog Waste</div><div class="job-addr">📍 142 Elm St, Springfield</div></div>
+            <div><div class="job-name">Michael Roberts</div><div class="job-service">🌿 Lawn Mowing + 🐾 Dog Waste</div><div class="job-addr">📍 142 Elm St, Okemos</div></div>
             <span class="job-status status-pending">Pending</span>
           </div>
         </div>
         <div class="job-card" onclick="openJob(1)">
           <div class="job-card-header">
-            <div><div class="job-name">Sarah Liu</div><div class="job-service">🐾 Dog Waste Weekly Sub</div><div class="job-addr">📍 87 Oak Ave, Springfield</div></div>
+            <div><div class="job-name">Sarah Liu</div><div class="job-service">🐾 Dog Waste Weekly Sub</div><div class="job-addr">📍 87 Oak Ave, Okemos</div></div>
             <span class="job-status status-in-progress">In Progress</span>
           </div>
         </div>
         <div class="job-card" onclick="openJob(2)">
           <div class="job-card-header">
-            <div><div class="job-name">David Kim</div><div class="job-service">🌿 Full Yard Cleanup</div><div class="job-addr">📍 310 Maple Dr, Springfield</div></div>
+            <div><div class="job-name">David Kim</div><div class="job-service">🌿 Full Yard Cleanup</div><div class="job-addr">📍 310 Maple Dr, Okemos</div></div>
             <span class="job-status status-done">Completed</span>
           </div>
         </div>
@@ -1918,9 +1920,9 @@ window.sendSMSBlast = function(){
   const CREW_PIN = '1234';
 
   const jobs = [
-    { name: 'Michael Roberts', address: '142 Elm St, Springfield', email: 'michael@example.com', phone: '(555) 111-2222', service: 'Lawn Mowing + Dog Waste Cleanup', notes: 'Gate code: 4821. 2 dogs (Labrador). Mow backyard and front. Pick up all pet waste.', status: 'pending', hasDog: true },
-    { name: 'Sarah Liu', address: '87 Oak Ave, Springfield', email: 'sarah@example.com', phone: '(555) 333-4444', service: 'Dog Waste Weekly Subscription', notes: '1 small dog. Gate on left side of house. Please latch gate when done.', status: 'in-progress', hasDog: true },
-    { name: 'David Kim', address: '310 Maple Dr, Springfield', email: 'david@example.com', phone: '(555) 555-6666', service: 'Full Yard Cleanup', notes: 'Leaf removal front and back. Haul all debris.', status: 'done', hasDog: false }
+    { name: 'Michael Roberts', address: '142 Elm St, Okemos', email: 'michael@example.com', phone: '(555) 111-2222', service: 'Lawn Mowing + Dog Waste Cleanup', notes: 'Gate code: 4821. 2 dogs (Labrador). Mow backyard and front. Pick up all pet waste.', status: 'pending', hasDog: true },
+    { name: 'Sarah Liu', address: '87 Oak Ave, Okemos', email: 'sarah@example.com', phone: '(555) 333-4444', service: 'Dog Waste Weekly Subscription', notes: '1 small dog. Gate on left side of house. Please latch gate when done.', status: 'in-progress', hasDog: true },
+    { name: 'David Kim', address: '310 Maple Dr, Okemos', email: 'david@example.com', phone: '(555) 555-6666', service: 'Full Yard Cleanup', notes: 'Leaf removal front and back. Haul all debris.', status: 'done', hasDog: false }
   ];
 
   let currentJob = null;
@@ -2283,7 +2285,7 @@ SERVICES & PRICING:
 BOOKING: Customers book online at the website. They select a service, upload lawn photos, pick a date/time, and pay securely via Stripe. No payment is charged until after service is complete.
 
 SERVICE AREA & HOURS:
-- Serving Springfield and surrounding areas
+- Serving Okemos, Wardcliff and surrounding areas
 - Available Monday–Saturday, 8am–4pm
 - Response time: within 24 hours
 
