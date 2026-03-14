@@ -620,7 +620,7 @@
             </div>
             <div class="form-group">
               <label>Phone Number</label>
-              <input type="tel" id="phone" placeholder="(555) 000-0000" />
+              <input type="tel" id="phone" placeholder="(989) 966-9094" />
             </div>
             <div class="form-group">
               <label>Service Address</label>
@@ -2299,9 +2299,9 @@ GENERAL:
 - Free estimates available
 - Photos help us give accurate quotes
 - Payment accepted: all major credit cards, Apple Pay
-- Contact: (555) 000-1234
+- Contact: (989) 966-9094
 
-If a customer wants to book, direct them to scroll up and use the booking form. If asked something you don't know, offer to have the team follow up via phone at (555) 000-1234.`;
+If a customer wants to book, direct them to scroll up and use the booking form. If asked something you don't know, offer to have the team follow up via phone at (989) 966-9094.`;
 
   let chatHistory = [];
   let isOpen = false;
@@ -2391,7 +2391,7 @@ If a customer wants to book, direct them to scroll up and use the booking form. 
         })
       });
       const data = await res.json();
-      const reply = data.content && data.content[0] ? data.content[0].text : "I'm sorry, I had trouble connecting. Please call us at (555) 000-1234!";
+      const reply = data.content && data.content[0] ? data.content[0].text : "I'm sorry, I had trouble connecting. Please call us at (989) 966-9094!";
       hideTyping();
       chatHistory.push({ role: 'assistant', content: reply });
       addBotMessage(reply);
@@ -2409,7 +2409,7 @@ If a customer wants to book, direct them to scroll up and use the booking form. 
       }
     } catch(e) {
       hideTyping();
-      addBotMessage("Oops, I had a connection issue! Please call us directly at (555) 000-1234 and we'll be happy to help. 😊");
+      addBotMessage("Oops, I had a connection issue! Please call us directly at (989) 966-9094 and we'll be happy to help. 😊");
     }
   }
 
