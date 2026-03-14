@@ -1,0 +1,2426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenCut Pro – Lawn Care Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-dark: #6b0f1a;
+    --green-mid: #8b1a2a;
+    --green-bright: #a83248;
+    --green-light: #d4a0aa;
+    --cream: #f8f9ff;
+    --tan: #e3edf8;
+    --brown: #5a0f1a;
+    --white: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #6b7a99;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(107,15,26,0.97);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900;
+    color: var(--green-light);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--cream); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a {
+    color: var(--cream); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    opacity: 0.85; transition: opacity 0.2s;
+  }
+  nav ul a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--green-bright); color: #fff !important;
+    padding: 0.5rem 1.2rem; border-radius: 50px;
+    opacity: 1 !important; font-weight: 600 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: #921428 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4a0a12 0%, #6b0f1a 40%, #8b1a2a 70%, #4a0a12 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2390c8e8' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(144,200,232,0.2); border: 1px solid rgba(144,200,232,0.4);
+    color: #b8ddf0; font-size: 0.8rem; font-weight: 600;
+    padding: 0.4rem 1rem; border-radius: 50px; margin-bottom: 1.5rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeDown 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 900; color: var(--cream);
+    line-height: 1.0; margin-bottom: 1.5rem;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+  .hero h1 em { color: #90c8e8; font-style: normal; }
+  .hero p {
+    font-size: 1.15rem; color: rgba(245,240,232,0.75);
+    max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem;
+    animation: fadeDown 0.6s 0.2s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeDown 0.6s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--green-bright); color: #fff;
+    padding: 0.9rem 2.2rem; border-radius: 50px;
+    font-size: 1rem; font-weight: 600; text-decoration: none;
+    border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(168,50,72,0.35);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(168,50,72,0.45); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    padding: 0.9rem 2.2rem; border-radius: 50px;
+    font-size: 1rem; font-weight: 600; text-decoration: none;
+    border: 2px solid rgba(245,240,232,0.4); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--cream); background: rgba(245,240,232,0.08); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    animation: fadeDown 0.6s 0.4s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 900; color: #90c8e8;
+  }
+  .stat-label { font-size: 0.8rem; color: rgba(245,240,232,0.6); margin-top: 0.2rem; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 5rem 2rem; }
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--green-mid);
+    margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900; color: var(--green-dark);
+    line-height: 1.1; margin-bottom: 1rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--cream);
+    border-radius: 16px; padding: 2rem;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer; position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: #90c8e8; transform: scaleX(0);
+    transition: transform 0.2s; transform-origin: left;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover {
+    border-color: #b8ddf0;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(144,200,232,0.18);
+  }
+  .service-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--green-dark);
+    margin-bottom: 0.5rem;
+  }
+  .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+  .service-price {
+    margin-top: 1rem;
+    font-size: 1.2rem; font-weight: 700; color: var(--green-mid);
+  }
+
+  /* ── BOOKING FORM ── */
+  #book { background: var(--tan); }
+  .booking-wrapper {
+    display: grid; grid-template-columns: 1fr 1.5fr;
+    gap: 3rem; margin-top: 3rem; align-items: start;
+  }
+  .booking-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; color: var(--green-dark); margin-bottom: 1rem;
+  }
+  .booking-info p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .steps { display: flex; flex-direction: column; gap: 1rem; }
+  .step { display: flex; align-items: flex-start; gap: 1rem; }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--green-dark); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; font-weight: 700; flex-shrink: 0;
+  }
+  .step-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--green-dark); }
+  .step-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* Form */
+  .form-card {
+    background: var(--white); border-radius: 20px;
+    padding: 2.5rem; box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  }
+  .form-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem;
+    border-bottom: 2px solid var(--tan); padding-bottom: 1rem;
+  }
+  .form-tab {
+    font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1rem;
+    border-radius: 50px; border: none; cursor: pointer;
+    background: transparent; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .form-tab.active {
+    background: var(--green-dark); color: var(--cream);
+  }
+
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  label {
+    display: block; font-size: 0.8rem; font-weight: 600;
+    color: var(--green-dark); margin-bottom: 0.4rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  input, select, textarea {
+    width: 100%; padding: 0.75rem 1rem;
+    border: 2px solid var(--tan); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--text); background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #90c8e8;
+    box-shadow: 0 0 0 3px rgba(144,200,232,0.18);
+    background: var(--white);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+
+  /* Upload area */
+  .upload-area {
+    border: 2px dashed #90c8e8; border-radius: 12px;
+    padding: 2rem; text-align: center; cursor: pointer;
+    transition: all 0.2s; background: rgba(144,200,232,0.06);
+    position: relative;
+  }
+  .upload-area:hover, .upload-area.dragover {
+    border-color: #5aaedb;
+    background: rgba(144,200,232,0.1);
+  }
+  .upload-area input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer;
+    width: 100%; height: 100%; border: none; background: none; padding: 0;
+  }
+  .upload-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  .upload-text { font-size: 0.9rem; color: var(--text-muted); }
+  .upload-text strong { color: #5aaedb; }
+  .preview-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem; margin-top: 1rem;
+  }
+  .preview-img {
+    aspect-ratio: 1; border-radius: 8px; overflow: hidden;
+    position: relative;
+  }
+  .preview-img img { width: 100%; height: 100%; object-fit: cover; }
+  .preview-img .remove-img {
+    position: absolute; top: 4px; right: 4px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(0,0,0,0.6); color: white;
+    border: none; cursor: pointer; font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Calendar mini */
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    gap: 4px; margin-top: 0.75rem;
+  }
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .cal-month {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700; font-size: 1rem; color: var(--green-dark);
+  }
+  .cal-nav {
+    background: none; border: 1px solid var(--tan); border-radius: 6px;
+    padding: 0.25rem 0.6rem; cursor: pointer; font-size: 0.9rem;
+    color: var(--green-dark); transition: background 0.15s;
+  }
+  .cal-nav:hover { background: var(--tan); }
+  .cal-day-name {
+    text-align: center; font-size: 0.65rem; font-weight: 700;
+    color: var(--text-muted); text-transform: uppercase; padding: 4px 0;
+  }
+  .cal-day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+    border: 2px solid transparent; transition: all 0.15s; color: var(--text);
+  }
+  .cal-day:hover:not(.empty):not(.past) { background: #b8ddf0; }
+  .cal-day.selected { background: var(--green-dark) !important; color: var(--cream) !important; }
+  .cal-day.today { border-color: #90c8e8; color: #5aaedb; font-weight: 700; }
+  .cal-day.past { color: #ccc; cursor: default; }
+  .cal-day.empty { cursor: default; }
+
+  .time-slots {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem; margin-top: 0.75rem;
+  }
+  .time-slot {
+    padding: 0.5rem; text-align: center; border-radius: 8px;
+    border: 2px solid var(--tan); font-size: 0.8rem; cursor: pointer;
+    transition: all 0.15s; color: var(--text-muted); font-weight: 500;
+  }
+  .time-slot:hover { border-color: #90c8e8; color: #5aaedb; }
+  .time-slot.selected { background: var(--green-dark); border-color: var(--green-dark); color: var(--cream); }
+  .time-slot.booked { background: #f5f5f5; color: #ccc; cursor: default; border-color: #eee; }
+
+  /* Payment */
+  .payment-summary {
+    background: var(--cream); border-radius: 12px; padding: 1.5rem;
+    margin-bottom: 1.5rem; border: 1px solid var(--tan);
+  }
+  .pay-row {
+    display: flex; justify-content: space-between;
+    font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;
+  }
+  .pay-row.total {
+    font-weight: 700; color: var(--green-dark);
+    font-size: 1.1rem; border-top: 1px solid var(--tan);
+    padding-top: 0.75rem; margin-top: 0.5rem;
+  }
+  .card-icons { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+  .card-icon {
+    background: var(--tan); border-radius: 6px;
+    padding: 0.3rem 0.7rem; font-size: 0.75rem; font-weight: 600; color: var(--text-muted);
+  }
+  .stripe-note {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;
+  }
+  .stripe-note::before { content: '🔒'; }
+
+  .btn-submit {
+    width: 100%; padding: 1rem; border-radius: 50px;
+    background: var(--green-dark); color: var(--cream);
+    border: none; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+    transition: all 0.2s; margin-top: 1rem;
+    letter-spacing: 0.03em;
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-1px); }
+  .btn-next {
+    background: var(--green-bright); color: white;
+    padding: 0.75rem 2rem; border-radius: 50px;
+    border: none; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; margin-top: 0.5rem;
+  }
+  .btn-next:hover { background: #921428; }
+  .btn-back {
+    background: transparent; color: var(--text-muted);
+    padding: 0.75rem 1rem; border-radius: 50px;
+    border: 1px solid var(--tan); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; cursor: pointer; margin-right: 0.5rem;
+    transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: var(--green-mid); color: var(--green-mid); }
+
+  /* Success */
+  .success-screen {
+    display: none; text-align: center; padding: 2rem 0;
+  }
+  .success-icon {
+    font-size: 4rem; margin-bottom: 1rem;
+    animation: pop 0.5s cubic-bezier(0.36,0.07,0.19,0.97);
+  }
+  .success-screen h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; color: var(--green-dark); margin-bottom: 0.75rem;
+  }
+  .success-screen p { color: var(--text-muted); max-width: 340px; margin: 0 auto; line-height: 1.6; }
+
+  /* ── TESTIMONIALS ── */
+  #reviews { background: var(--white); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .review-card {
+    background: var(--cream); border-radius: 16px; padding: 1.75rem;
+    border-left: 4px solid var(--green-bright);
+  }
+  .stars { color: #f5a623; font-size: 1rem; margin-bottom: 0.75rem; }
+  .review-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 0.75rem; }
+  .reviewer-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--green-mid); display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 700; font-size: 0.9rem;
+  }
+  .reviewer-name { font-weight: 600; font-size: 0.9rem; color: var(--green-dark); }
+  .reviewer-loc { font-size: 0.78rem; color: var(--text-muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--green-dark); color: rgba(245,240,232,0.7);
+    padding: 3rem 2rem; text-align: center;
+  }
+  footer .logo { font-size: 1.4rem; margin-bottom: 0.75rem; display: block; }
+  footer p { font-size: 0.85rem; margin-bottom: 0.5rem; }
+  footer a { color: #90c8e8; text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .booking-wrapper { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+    .time-slots { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">GreenCut<span>Pro</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#book">Book Now</a></li>
+    <li><a href="#gallery">Gallery</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#faq">FAQ</a></li><li><a href="#blog">Blog</a></li>
+    <li><a href="#book" class="nav-cta">Get a Quote</a></li><li><a href="#" onclick="openCustomerPortal();return false;" style="color:#90c8e8 !important;font-weight:600 !important;opacity:1 !important;">My Account</a></li>
+  </ul>
+</nav>
+
+<!-- PROMO BANNER -->
+<!-- See promo banner in additions section -->
+<!-- ══════════════════════════════════════════
+     SEASONAL PROMO BANNER
+══════════════════════════════════════════ -->
+<div id="promo-banner" style="background:linear-gradient(90deg,#6b0f1a,#8b1a2a,#5a8abf);padding:0.65rem 1.5rem;text-align:center;position:relative;z-index:99;">
+  <span style="color:#fff;font-size:0.875rem;font-weight:600;">🌸 Spring Special — Book any lawn service & get <strong>FREE dog waste cleanup</strong> on your first visit! &nbsp;<a href="#book" style="color:#90c8e8;text-decoration:underline;">Book Now →</a></span>
+  <button onclick="this.parentElement.style.display='none'" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.6);font-size:1.1rem;cursor:pointer;">✕</button>
+</div>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🌿 Serving Your Neighborhood Since 2018</div>
+  <h1>Your Lawn,<br><em>Perfectly Cut.</em></h1>
+  <p>Professional lawn care on your schedule. Upload photos of your lawn, pick a time that works for you, and pay securely online.</p>
+  <div class="hero-btns">
+    <a href="#book" class="btn-primary">Book a Service</a>
+    <a href="#services" class="btn-outline">View Services</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">1,200+</div><div class="stat-label">Happy Lawns</div></div>
+    <div class="stat"><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+    <div class="stat"><div class="stat-num">24hr</div><div class="stat-label">Response Time</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">What We Offer</div>
+    <h2>Services & Pricing</h2>
+    <p style="color:var(--text-muted); max-width:520px; line-height:1.7;">From a quick mow to a full seasonal cleanup — we handle it all with care and precision.</p>
+    <div class="services-grid">
+      <div class="service-card" onclick="selectService('Lawn Mowing', 45)">
+        <div class="service-icon">🌿</div>
+        <h3>Lawn Mowing</h3>
+        <p>Clean, even cut with edging included. We bag the clippings and leave your lawn looking sharp.</p>
+        <div class="service-price">From $45</div>
+      </div>
+      <div class="service-card" onclick="selectService('Full Yard Cleanup', 120)">
+        <div class="service-icon">🍂</div>
+        <h3>Full Yard Cleanup</h3>
+        <p>Leaf removal, debris hauling, trimming, and edging. Perfect for spring or fall prep.</p>
+        <div class="service-price">From $120</div>
+      </div>
+      <div class="service-card" onclick="selectService('Fertilization & Weed Control', 85)">
+        <div class="service-icon">🌱</div>
+        <h3>Fertilization & Weed Control</h3>
+        <p>Targeted treatment to feed your lawn and eliminate weeds without harming your grass.</p>
+        <div class="service-price">From $85</div>
+      </div>
+      <div class="service-card" onclick="selectService('Hedge & Shrub Trimming', 65)">
+        <div class="service-icon">✂️</div>
+        <h3>Hedge & Shrub Trimming</h3>
+        <p>Shape and sculpt your hedges and shrubs for a manicured look all season long.</p>
+        <div class="service-price">From $65</div>
+      </div>
+      <div class="service-card" onclick="selectService('Seasonal Seeding', 100)">
+        <div class="service-icon">🌾</div>
+        <h3>Seasonal Seeding</h3>
+        <p>Overseed thin or bare patches to keep your lawn lush and green year-round.</p>
+        <div class="service-price">From $100</div>
+      </div>
+      <div class="service-card" onclick="selectService('Custom Package', 0)">
+        <div class="service-icon">📋</div>
+        <h3>Custom Package</h3>
+        <p>Need a combination of services? Tell us what you need and we'll build the right plan.</p>
+        <div class="service-price">Get a Quote</div>
+      </div>
+      <div class="service-card" onclick="selectService('Snow Shoveling', 60)">
+        <div class="service-icon">❄️</div>
+        <h3>Snow Shoveling</h3>
+        <p>Driveways, walkways, and porches cleared quickly after every snowfall so you can get on with your day.</p>
+        <div class="service-price">From $60</div>
+      </div>
+      <div class="service-card" onclick="selectService('Dog Waste Cleanup', 25)" style="border:2px solid #b8ddf0; background: linear-gradient(135deg, #fff 60%, #eef6fc);">
+        <div class="service-icon">🐾</div>
+        <h3>Dog Waste Cleanup</h3>
+        <p>We scoop, bag, and dispose of all pet waste in your yard so you don't have to. Add-on to any lawn service or subscribe weekly.</p>
+        <div class="service-price" style="color:#5aaedb;">From $25 &nbsp;<span style="font-size:0.8rem;background:#e3edf8;padding:2px 8px;border-radius:20px;font-weight:700;">Weekly Sub $18/visit</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;background:linear-gradient(135deg,#6b0f1a 0%,#8b1a2a 100%);border-radius:20px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+      <div>
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#90c8e8;margin-bottom:0.4rem;">🐾 Weekly Subscription Service</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:0.4rem;">Never Step in It Again.</div>
+        <div style="font-size:0.9rem;color:rgba(255,255,255,0.75);max-width:480px;line-height:1.6;">Subscribe to weekly dog waste removal and save vs. one-time visits. Bundle it with your lawn mowing and get everything done in one visit — same crew, same day.</div>
+      </div>
+      <a href="#book" style="white-space:nowrap;background:#90c8e8;color:#6b0f1a;padding:0.9rem 2rem;border-radius:50px;font-weight:700;text-decoration:none;font-size:0.95rem;">Subscribe &amp; Save →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="book">
+  <div class="container">
+    <div class="section-label">Online Booking</div>
+    <h2>Schedule Your Service</h2>
+    <div class="booking-wrapper">
+      <div class="booking-info">
+        <h3>Simple. Fast. Reliable.</h3>
+        <p>Book your lawn care service in minutes. Upload photos so we can give you an accurate quote before we arrive.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-text">
+              <h4>Choose Your Service</h4>
+              <p>Select what your lawn needs from our menu of services.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-text">
+              <h4>Upload Lawn Photos</h4>
+              <p>Help us see your yard size and condition for an accurate estimate.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-text">
+              <h4>Pick a Date & Time</h4>
+              <p>Choose from available slots that fit your schedule.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-text">
+              <h4>Pay Securely Online</h4>
+              <p>Your card is charged only after the service is complete.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="form-card">
+        <div id="booking-form">
+          <!-- Tabs -->
+          <div class="form-tabs">
+            <button class="form-tab active" id="tab1">1. Details</button>
+            <button class="form-tab" id="tab2">2. Schedule</button>
+            <button class="form-tab" id="tab3">3. Payment</button>
+          </div>
+
+          <!-- STEP 1: Details + Photos -->
+          <div class="form-step active" id="step1">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" id="fname" placeholder="Jane" />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" id="lname" placeholder="Smith" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="email" placeholder="jane@example.com" />
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="phone" placeholder="(555) 000-0000" />
+            </div>
+            <div class="form-group">
+              <label>Service Address</label>
+              <input type="text" id="address" placeholder="123 Main St, Springfield, IL" />
+            </div>
+            <div class="form-group">
+              <label>Service Type</label>
+              <select id="service-select" onchange="toggleSubBox(this)">
+                <option value="">— Select a service —</option>
+                <optgroup label="🌿 Lawn Care">
+                  <option value="Lawn Mowing|45">Lawn Mowing — From $45</option>
+                  <option value="Full Yard Cleanup|120">Full Yard Cleanup — From $120</option>
+                  <option value="Fertilization &amp; Weed Control|85">Fertilization &amp; Weed Control — From $85</option>
+                  <option value="Hedge &amp; Shrub Trimming|65">Hedge &amp; Shrub Trimming — From $65</option>
+                  <option value="Seasonal Seeding|100">Seasonal Seeding — From $100</option>
+                  <option value="Custom Package|0">Custom Package — Get a Quote</option>
+                </optgroup>
+                <optgroup label="❄️ Snow Removal">
+                  <option value="Snow Shoveling|60">Snow Shoveling — From $60</option>
+                </optgroup>
+                <optgroup label="🐾 Dog Waste Cleanup">
+                  <option value="Dog Waste Cleanup|25">One-Time Cleanup — $25</option>
+                  <option value="Dog Waste Weekly Subscription|18">Weekly Subscription — $18/visit</option>
+                  <option value="Lawn Mowing + Dog Waste Bundle|55">Lawn Mowing + Dog Waste Bundle — From $55</option>
+                  <option value="Lawn + Dog Waste Weekly Sub|70">Lawn + Dog Waste — Weekly Sub $70/visit</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div id="sub-box" style="display:none; background:linear-gradient(135deg,#eef6fc,#f8f9ff); border:2px solid #90c8e8; border-radius:14px; padding:1.25rem 1.5rem; margin-bottom:1.2rem;">
+              <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#5aaedb;margin-bottom:0.6rem;">🐾 Weekly Subscription Details</div>
+              <div class="form-group" style="margin-bottom:0.75rem;">
+                <label style="color:#5aaedb;">Preferred Cleanup Day</label>
+                <select id="sub-day">
+                  <option value="">— Pick a day —</option>
+                  <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+                  <option>Thursday</option><option>Friday</option><option>Saturday</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:0.5rem;">
+                <label style="color:#5aaedb;">Number of Dogs</label>
+                <select id="num-dogs">
+                  <option value="1">1 dog</option>
+                  <option value="2">2 dogs</option>
+                  <option value="3">3 dogs (+$5/visit)</option>
+                  <option value="4+">4+ dogs (+$10/visit)</option>
+                </select>
+              </div>
+              <div style="font-size:0.8rem;color:#6b7a99;line-height:1.5;">✅ Billed monthly &nbsp;|&nbsp; ✅ Cancel anytime &nbsp;|&nbsp; ✅ Same crew every week</div>
+            </div>
+
+            <div class="form-group">
+              <label>Upload Lawn Photos <span style="font-weight:400;color:var(--text-muted)">(Optional)</span></label>
+              <div class="upload-area" id="upload-area">
+                <input type="file" accept="image/*" multiple id="photo-input" />
+                <div class="upload-icon">📸</div>
+                <div class="upload-text"><strong>Click to upload</strong> or drag & drop<br>JPG, PNG, HEIC up to 10MB each</div>
+              </div>
+              <div class="preview-grid" id="preview-grid"></div>
+            </div>
+            <div class="form-group">
+              <label>Special Instructions</label>
+              <textarea id="notes" placeholder="Gate code, areas to avoid, dog in yard, etc."></textarea>
+            </div>
+            <button class="btn-next" onclick="goStep(2)">Next: Choose Date & Time →</button>
+          </div>
+
+          <!-- STEP 2: Calendar + Time -->
+          <div class="form-step" id="step2">
+            <div class="form-group">
+              <label>Select Date</label>
+              <div class="cal-header">
+                <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+                <span class="cal-month" id="cal-month-label"></span>
+                <button class="cal-nav" onclick="changeMonth(1)">›</button>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+            </div>
+            <div class="form-group" style="margin-top:1.5rem">
+              <label>Select Time</label>
+              <div class="time-slots" id="time-slots"></div>
+            </div>
+            <div id="selected-slot-display" style="margin:1rem 0;font-size:0.9rem;color:#5aaedb;font-weight:600;min-height:1.5rem;"></div>
+            <div>
+              <button class="btn-back" onclick="goStep(1)">← Back</button>
+              <button class="btn-next" onclick="goStep(3)">Next: Payment →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Payment -->
+          <div class="form-step" id="step3">
+            <div class="payment-summary">
+              <div class="pay-row"><span>Service</span><span id="pay-service">—</span></div>
+              <div class="pay-row"><span>Date & Time</span><span id="pay-datetime">—</span></div>
+              <div class="pay-row"><span>Address</span><span id="pay-address" style="max-width:160px;text-align:right;font-size:0.8rem">—</span></div>
+              <div class="pay-row total"><span>Estimated Total</span><span id="pay-total">—</span></div>
+            </div>
+            <div class="card-icons">
+              <span class="card-icon">VISA</span>
+              <span class="card-icon">MC</span>
+              <span class="card-icon">AMEX</span>
+              <span class="card-icon">ApplePay</span>
+            </div>
+            <div class="form-group">
+              <label>Name on Card</label>
+              <input type="text" id="card-name" placeholder="Jane Smith" />
+            </div>
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" id="card-num" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" id="card-exp" placeholder="MM / YY" maxlength="7" oninput="formatExp(this)" />
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" id="card-cvv" placeholder="123" maxlength="4" />
+              </div>
+            </div>
+            <div class="stripe-note">Payments are processed securely via Stripe. Your card info is never stored on our servers.</div>
+            <div>
+              <button class="btn-back" onclick="goStep(2)">← Back</button>
+              <button class="btn-submit" onclick="submitBooking()">✓ Confirm & Pay Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div class="success-screen" id="success-screen">
+          <div class="success-icon">✅</div>
+          <h3>Booking Confirmed!</h3>
+          <p id="success-msg">Thank you! We'll see you on <strong id="success-date"></strong>. A confirmation has been sent to your email.</p>
+          <button class="btn-next" style="margin-top:1.5rem" onclick="resetForm()">Book Another Service</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="container">
+    <div class="section-label">Customer Reviews</div>
+    <h2>What Our Clients Say</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"GreenCut Pro transformed my yard in a single afternoon. The crew was on time, professional, and my lawn has never looked better. Booking online was so easy!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">MR</div>
+          <div><div class="reviewer-name">Mike R.</div><div class="reviewer-loc">Springfield, IL</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"I love that I could upload photos before they came out. They knew exactly what to bring and the quote was spot-on. Will definitely use again every season."</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">SL</div>
+          <div><div class="reviewer-name">Sarah L.</div><div class="reviewer-loc">Oak Park, IL</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p>"Fast, reliable, and fair priced. The online scheduling and payment made everything super simple. My neighbors keep asking who does my lawn!"</p>
+        <div class="reviewer">
+          <div class="reviewer-avatar">DK</div>
+          <div><div class="reviewer-name">David K.</div><div class="reviewer-loc">Naperville, IL</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="logo">GreenCut<span style="color:var(--cream)">Pro</span></span>
+  <p>📍 Serving Springfield & Surrounding Areas &nbsp;|&nbsp; 📞 <a href="tel:5550001234">(555) 000-1234</a></p>
+  <p style="margin-top:0.5rem; font-size:0.78rem; opacity:0.5;">© 2025 GreenCut Pro. All rights reserved.</p>
+</footer>
+
+<script>
+// ── State ──
+let currentStep = 1;
+let selectedService = '';
+let selectedPrice = 0;
+let selectedDate = null;
+let selectedTime = '';
+let calYear, calMonth;
+let uploadedFiles = [];
+
+const bookedSlots = { '15': ['9:00 AM', '1:00 PM'], '22': ['10:00 AM'] };
+const times = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+
+// Init
+const today = new Date();
+calYear = today.getFullYear();
+calMonth = today.getMonth();
+renderCalendar();
+renderTimeSlots();
+
+// ── Navigation ──
+function goStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  document.getElementById('tab' + currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step' + n).classList.add('active');
+  document.getElementById('tab' + n).classList.add('active');
+  if (n === 3) populatePaymentSummary();
+}
+
+// ── Service selection from cards ──
+function selectService(name, price) {
+  selectedService = name; selectedPrice = price;
+  const sel = document.getElementById('service-select');
+  for (let opt of sel.options) {
+    if (opt.value.startsWith(name)) { sel.value = opt.value; break; }
+  }
+  document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+}
+
+document.getElementById('service-select').addEventListener('change', function() {
+  const [name, price] = this.value.split('|');
+  selectedService = name || ''; selectedPrice = parseInt(price) || 0;
+  toggleSubBox(this);
+});
+
+function toggleSubBox(sel) {
+  const val = sel.value.toLowerCase();
+  const isSub = val.includes('subscription') || val.includes('sub');
+  document.getElementById('sub-box').style.display = isSub ? 'block' : 'none';
+}
+
+// ── Photo Upload ──
+const photoInput = document.getElementById('photo-input');
+const previewGrid = document.getElementById('preview-grid');
+const uploadArea = document.getElementById('upload-area');
+
+photoInput.addEventListener('change', handleFiles);
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault(); uploadArea.classList.remove('dragover');
+  handleFiles({ target: { files: e.dataTransfer.files } });
+});
+
+function handleFiles(e) {
+  Array.from(e.target.files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    uploadedFiles.push(file);
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const idx = uploadedFiles.length - 1;
+      const div = document.createElement('div'); div.className = 'preview-img'; div.id = 'prev-' + idx;
+      div.innerHTML = `<img src="${ev.target.result}" alt="lawn photo" /><button class="remove-img" onclick="removeImg(${idx})">✕</button>`;
+      previewGrid.appendChild(div);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function removeImg(idx) {
+  uploadedFiles.splice(idx, 1);
+  const el = document.getElementById('prev-' + idx); if (el) el.remove();
+}
+
+// ── Calendar ──
+function renderCalendar() {
+  const label = document.getElementById('cal-month-label');
+  const grid = document.getElementById('cal-grid');
+  const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  label.textContent = names[calMonth] + ' ' + calYear;
+  grid.innerHTML = '';
+  ['Su','Mo','Tu','We','Th','Fr','Sa'].forEach(d => {
+    const el = document.createElement('div'); el.className = 'cal-day-name'; el.textContent = d; grid.appendChild(el);
+  });
+  const first = new Date(calYear, calMonth, 1).getDay();
+  const days = new Date(calYear, calMonth + 1, 0).getDate();
+  for (let i = 0; i < first; i++) {
+    const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el);
+  }
+  for (let d = 1; d <= days; d++) {
+    const el = document.createElement('div'); el.className = 'cal-day';
+    const thisDate = new Date(calYear, calMonth, d);
+    const isToday = (d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear());
+    const isPast = thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isSun = thisDate.getDay() === 0;
+    if (isToday) el.classList.add('today');
+    if (isPast || isSun) { el.classList.add('past'); }
+    else {
+      el.addEventListener('click', () => selectDate(d, el));
+      if (selectedDate && selectedDate.getDate() === d && selectedDate.getMonth() === calMonth && selectedDate.getFullYear() === calYear) el.classList.add('selected');
+    }
+    el.textContent = d; grid.appendChild(el);
+  }
+}
+function changeMonth(dir) {
+  calMonth += dir;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  renderCalendar();
+}
+function selectDate(d, el) {
+  selectedDate = new Date(calYear, calMonth, d);
+  selectedTime = '';
+  document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  renderTimeSlots();
+  updateSlotDisplay();
+}
+
+// ── Time Slots ──
+function renderTimeSlots() {
+  const container = document.getElementById('time-slots');
+  container.innerHTML = '';
+  const booked = selectedDate ? (bookedSlots[selectedDate.getDate()] || []) : [];
+  times.forEach(t => {
+    const el = document.createElement('div'); el.className = 'time-slot';
+    el.textContent = t;
+    if (booked.includes(t)) { el.classList.add('booked'); el.title = 'Not available'; }
+    else if (selectedTime === t) el.classList.add('selected');
+    else el.addEventListener('click', () => selectTime(t, el));
+    container.appendChild(el);
+  });
+}
+function selectTime(t, el) {
+  selectedTime = t;
+  document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+  updateSlotDisplay();
+}
+function updateSlotDisplay() {
+  const disp = document.getElementById('selected-slot-display');
+  if (selectedDate && selectedTime) {
+    disp.textContent = '📅 ' + selectedDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }) + ' at ' + selectedTime;
+  } else if (selectedDate) {
+    disp.textContent = '📅 ' + selectedDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }) + ' — Please select a time';
+  } else {
+    disp.textContent = '';
+  }
+}
+
+// ── Payment Summary ──
+function populatePaymentSummary() {
+  const svc = document.getElementById('service-select').value.split('|')[0] || 'Not selected';
+  const price = parseInt(document.getElementById('service-select').value.split('|')[1]) || 0;
+  const addr = document.getElementById('address').value || '—';
+  const dt = (selectedDate && selectedTime) ?
+    selectedDate.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) + ' at ' + selectedTime : '—';
+  document.getElementById('pay-service').textContent = svc;
+  document.getElementById('pay-datetime').textContent = dt;
+  document.getElementById('pay-address').textContent = addr;
+  document.getElementById('pay-total').textContent = price > 0 ? 'From $' + price : 'Custom Quote';
+}
+
+// ── Card Formatting ──
+function formatCard(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,16);
+  input.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function formatExp(input) {
+  let v = input.value.replace(/\D/g,'').substring(0,4);
+  if (v.length > 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+  input.value = v;
+}
+
+// ── Submit ──
+function submitBooking() {
+  const name = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
+  const dt = (selectedDate && selectedTime) ?
+    selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}) + ' at ' + selectedTime : 'your scheduled time';
+  document.getElementById('booking-form').style.display = 'none';
+  const s = document.getElementById('success-screen');
+  s.style.display = 'block';
+  document.getElementById('success-date').textContent = dt;
+  document.getElementById('success-msg').innerHTML = `Thank you, <strong>${name.trim() || 'valued customer'}</strong>! We'll be there on <strong>${dt}</strong>. A confirmation has been sent to your email.`;
+}
+function resetForm() {
+  document.getElementById('booking-form').style.display = 'block';
+  document.getElementById('success-screen').style.display = 'none';
+  goStep(1);
+  uploadedFiles = [];
+  document.getElementById('preview-grid').innerHTML = '';
+  selectedDate = null; selectedTime = ''; selectedService = ''; selectedPrice = 0;
+  renderCalendar(); renderTimeSlots(); updateSlotDisplay();
+}
+</script>
+
+<!-- ══════════════════════════════════════════
+     BEFORE/AFTER PHOTO GALLERY
+══════════════════════════════════════════ -->
+<section id="gallery" style="background:#fff;padding:5rem 2rem;">
+  <div class="container">
+    <div class="section-label">Our Work</div>
+    <h2>Before & After</h2>
+    <p style="color:var(--text-muted);max-width:520px;line-height:1.7;margin-bottom:2.5rem;">Real results from real lawns. See the difference our crew makes on every visit.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;" id="gallery-grid">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SERVICE AREA MAP
+══════════════════════════════════════════ -->
+<section id="area" style="background:var(--cream);padding:5rem 2rem;">
+  <div class="container">
+    <div class="section-label">Coverage</div>
+    <h2>Service Area</h2>
+    <p style="color:var(--text-muted);max-width:520px;line-height:1.7;margin-bottom:2.5rem;">We serve Springfield and all surrounding communities. Enter your zip code below to check if we cover your area.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:2rem;align-items:start;" class="area-grid">
+      <div>
+        <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);margin-bottom:1rem;">
+          <label style="display:block;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green-dark);margin-bottom:0.5rem;">Check Your Zip Code</label>
+          <div style="display:flex;gap:0.5rem;">
+            <input type="text" id="zip-input" placeholder="e.g. 62701" maxlength="5" style="flex:1;padding:0.65rem 1rem;border:2px solid var(--tan);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;" oninput="checkZip()" />
+          </div>
+          <div id="zip-result" style="margin-top:0.75rem;font-size:0.875rem;min-height:1.5rem;"></div>
+        </div>
+
+        <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 16px rgba(0,0,0,0.06);">
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#90c8e8;margin-bottom:1rem;">Areas We Serve</div>
+          <div id="zip-list" style="display:flex;flex-wrap:wrap;gap:0.5rem;"></div>
+        </div>
+      </div>
+
+      <div style="background:#e3edf8;border-radius:20px;overflow:hidden;min-height:340px;position:relative;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        <div id="map-visual" style="width:100%;height:340px;position:relative;background:linear-gradient(135deg,#c8dff5,#e3edf8);display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 400 340" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <!-- Road network -->
+            <line x1="200" y1="0" x2="200" y2="340" stroke="#b8cfe8" stroke-width="3" stroke-dasharray="8,4"/>
+            <line x1="0" y1="170" x2="400" y2="170" stroke="#b8cfe8" stroke-width="3" stroke-dasharray="8,4"/>
+            <line x1="100" y1="0" x2="100" y2="340" stroke="#cdddf0" stroke-width="1.5"/>
+            <line x1="300" y1="0" x2="300" y2="340" stroke="#cdddf0" stroke-width="1.5"/>
+            <line x1="0" y1="85" x2="400" y2="85" stroke="#cdddf0" stroke-width="1.5"/>
+            <line x1="0" y1="255" x2="400" y2="255" stroke="#cdddf0" stroke-width="1.5"/>
+            <!-- Coverage zones -->
+            <circle cx="200" cy="170" r="130" fill="rgba(107,15,26,0.08)" stroke="#8b1a2a" stroke-width="2" stroke-dasharray="6,3"/>
+            <circle cx="200" cy="170" r="85" fill="rgba(107,15,26,0.1)" stroke="#6b0f1a" stroke-width="2"/>
+            <circle cx="200" cy="170" r="40" fill="rgba(107,15,26,0.18)" stroke="#6b0f1a" stroke-width="2.5"/>
+            <!-- Location pins -->
+            <g transform="translate(188,148)">
+              <circle cx="12" cy="12" r="14" fill="#6b0f1a"/>
+              <text x="12" y="17" text-anchor="middle" fill="white" font-size="14">🌿</text>
+            </g>
+            <!-- Area labels -->
+            <text x="200" y="230" text-anchor="middle" fill="#6b0f1a" font-size="11" font-weight="700" font-family="DM Sans,sans-serif">Springfield (Core)</text>
+            <text x="310" y="120" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Oak Park</text>
+            <text x="90" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Chatham</text>
+            <text x="320" y="240" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Sherman</text>
+            <text x="80" y="110" text-anchor="middle" fill="#8b1a2a" font-size="10" font-family="DM Sans,sans-serif">Auburn</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FAQ SECTION
+══════════════════════════════════════════ -->
+<section id="faq" style="background:#fff;padding:5rem 2rem;">
+  <div class="container">
+    <div class="section-label">Got Questions?</div>
+    <h2>Frequently Asked Questions</h2>
+    <div style="max-width:680px;margin:2.5rem auto 0;" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BLOG / SEO TIPS SECTION
+══════════════════════════════════════════ -->
+<section id="blog" style="background:var(--cream);padding:5rem 2rem;">
+  <div class="container">
+    <div class="section-label">Lawn Care Tips</div>
+    <h2>From Our Blog</h2>
+    <p style="color:var(--text-muted);max-width:520px;line-height:1.7;margin-bottom:2.5rem;">Expert advice to keep your lawn looking great all year round.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;" id="blog-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GIFT CARDS & REFERRAL
+══════════════════════════════════════════ -->
+<section id="gifts" style="background:linear-gradient(135deg,#6b0f1a 0%,#8b1a2a 60%,#5a8abf 100%);padding:5rem 2rem;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:stretch;" class="gift-grid">
+      <!-- Gift Card -->
+      <div style="background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:2rem;backdrop-filter:blur(8px);">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🎁</div>
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#90c8e8;margin-bottom:0.4rem;">Gift Cards</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:0.75rem;">Give the Gift of a Perfect Lawn</h3>
+        <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;line-height:1.6;margin-bottom:1.25rem;">Birthdays, holidays, housewarmings — a GreenCut Pro gift card is always the right choice.</p>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
+          <button class="gift-amt active-amt" onclick="selectGift(this,25)">$25</button>
+          <button class="gift-amt" onclick="selectGift(this,50)">$50</button>
+          <button class="gift-amt" onclick="selectGift(this,100)">$100</button>
+          <button class="gift-amt" onclick="selectGift(this,0)">Custom</button>
+        </div>
+        <div id="custom-gift-wrap" style="display:none;margin-bottom:1rem;">
+          <input type="number" id="custom-gift-amt" placeholder="Enter amount" min="10" style="padding:0.6rem 1rem;border-radius:10px;border:none;font-family:'DM Sans',sans-serif;font-size:0.95rem;width:100%;"/>
+        </div>
+        <button onclick="purchaseGift()" style="background:#90c8e8;color:#6b0f1a;border:none;border-radius:50px;padding:0.75rem 2rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;width:100%;">Purchase Gift Card →</button>
+        <div id="gift-confirm" style="display:none;margin-top:0.75rem;background:rgba(144,200,232,0.2);border-radius:10px;padding:0.75rem;color:#90c8e8;font-size:0.85rem;text-align:center;">✅ Gift card added! Proceed to checkout.</div>
+      </div>
+
+      <!-- Referral -->
+      <div style="background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.2);border-radius:20px;padding:2rem;backdrop-filter:blur(8px);">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">🤝</div>
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#90c8e8;margin-bottom:0.4rem;">Referral Program</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:#fff;margin-bottom:0.75rem;">Share & Save Together</h3>
+        <p style="color:rgba(255,255,255,0.75);font-size:0.875rem;line-height:1.6;margin-bottom:1.25rem;">Refer a friend and you <strong style="color:#90c8e8;">both</strong> get $10 off your next service. No limit on referrals!</p>
+        <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:1rem;margin-bottom:1.25rem;">
+          <div style="font-size:0.75rem;color:rgba(255,255,255,0.6);margin-bottom:0.4rem;">Your referral code</div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span id="ref-code" style="font-family:monospace;font-size:1.1rem;font-weight:700;color:#90c8e8;letter-spacing:0.1em;">LAWN-<span id="ref-suffix">XXXX</span></span>
+            <button onclick="copyRef()" style="background:rgba(144,200,232,0.2);border:1px solid #90c8e8;color:#90c8e8;border-radius:8px;padding:0.3rem 0.75rem;font-size:0.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;">Copy</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.25rem;">
+          <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:700;color:#90c8e8;font-family:'Playfair Display',serif;">0</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.6);">Referrals sent</div>
+          </div>
+          <div style="background:rgba(0,0,0,0.2);border-radius:10px;padding:0.75rem;text-align:center;">
+            <div style="font-size:1.4rem;font-weight:700;color:#90c8e8;font-family:'Playfair Display',serif;">$0</div>
+            <div style="font-size:0.75rem;color:rgba(255,255,255,0.6);">Credits earned</div>
+          </div>
+        </div>
+        <button onclick="shareRef()" style="background:#90c8e8;color:#6b0f1a;border:none;border-radius:50px;padding:0.75rem 2rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;width:100%;">Share Your Code →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CUSTOMER PORTAL (LOGIN / DASHBOARD)
+══════════════════════════════════════════ -->
+<div id="customer-portal" style="display:none;position:fixed;inset:0;z-index:9990;background:#f0f4ff;overflow-y:auto;font-family:'DM Sans',sans-serif;">
+  <div style="background:linear-gradient(135deg,#6b0f1a,#8b1a2a);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,0.2);">
+    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;">GreenCut<span style="color:#90c8e8;">Pro</span></div>
+    <div style="background:#90c8e8;color:#6b0f1a;font-size:0.7rem;font-weight:800;padding:0.25rem 0.75rem;border-radius:20px;text-transform:uppercase;letter-spacing:0.05em;">My Account</div>
+    <button onclick="document.getElementById('customer-portal').style.display='none'" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:0.4rem 1rem;border-radius:20px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Close</button>
+  </div>
+
+  <div style="max-width:640px;margin:0 auto;padding:1.5rem;" id="cust-body">
+
+    <!-- Login form -->
+    <div id="cust-login" style="background:#fff;border-radius:20px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,0.08);margin-top:2rem;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">🏡</div>
+      <h2 style="font-family:'Playfair Display',serif;color:#6b0f1a;margin-bottom:0.5rem;">Customer Login</h2>
+      <p style="color:#6b7a99;font-size:0.9rem;margin-bottom:1.5rem;">Access your bookings, subscriptions, and service history</p>
+      <div style="text-align:left;">
+        <div style="margin-bottom:1rem;">
+          <label style="display:block;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#6b0f1a;margin-bottom:0.4rem;">Email</label>
+          <input type="email" id="cust-email" placeholder="you@email.com" style="width:100%;padding:0.75rem 1rem;border:2px solid #e3edf8;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;"/>
+        </div>
+        <div style="margin-bottom:1.25rem;">
+          <label style="display:block;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#6b0f1a;margin-bottom:0.4rem;">Password</label>
+          <input type="password" id="cust-pw" placeholder="••••••••" style="width:100%;padding:0.75rem 1rem;border:2px solid #e3edf8;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.95rem;outline:none;"/>
+        </div>
+        <button onclick="custLogin()" style="width:100%;padding:0.9rem;border-radius:50px;background:#6b0f1a;color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Sign In →</button>
+        <p style="text-align:center;margin-top:1rem;font-size:0.8rem;color:#6b7a99;">Demo: any email + password &nbsp;|&nbsp; <a href="#" style="color:#90c8e8;">Create account</a></p>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="cust-dashboard" style="display:none;">
+      <div style="background:linear-gradient(135deg,#6b0f1a,#8b1a2a);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;color:#fff;">
+        <div style="font-size:0.8rem;color:rgba(255,255,255,0.7);margin-bottom:0.25rem;">Welcome back,</div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;" id="cust-welcome-name">Jane Smith</div>
+        <div style="display:flex;gap:1.5rem;margin-top:1rem;">
+          <div><div style="font-size:1.3rem;font-weight:700;color:#90c8e8;">3</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.65);">Total Services</div></div>
+          <div><div style="font-size:1.3rem;font-weight:700;color:#90c8e8;">Active</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.65);">Subscription</div></div>
+          <div><div style="font-size:1.3rem;font-weight:700;color:#90c8e8;">$10</div><div style="font-size:0.75rem;color:rgba(255,255,255,0.65);">Credits</div></div>
+        </div>
+      </div>
+
+      <!-- SMS Notifications toggle -->
+      <div style="background:#fff;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:700;font-size:0.9rem;color:#1a1a2e;">📱 SMS Reminders</div>
+          <div style="font-size:0.78rem;color:#6b7a99;">Get a text 24hrs before your service</div>
+        </div>
+        <label style="position:relative;display:inline-block;width:46px;height:26px;cursor:pointer;">
+          <input type="checkbox" id="sms-toggle" checked style="opacity:0;width:0;height:0;" onchange="toggleSMS(this)"/>
+          <span id="sms-slider" style="position:absolute;inset:0;background:#6b0f1a;border-radius:26px;transition:0.3s;"></span>
+          <span id="sms-knob" style="position:absolute;left:3px;top:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:0.3s;transform:translateX(20px);"></span>
+        </label>
+      </div>
+
+      <!-- Email Reminders toggle -->
+      <div style="background:#fff;border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:700;font-size:0.9rem;color:#1a1a2e;">✉️ Email Reminders</div>
+          <div style="font-size:0.78rem;color:#6b7a99;">Booking confirmations & service updates</div>
+        </div>
+        <label style="position:relative;display:inline-block;width:46px;height:26px;cursor:pointer;">
+          <input type="checkbox" id="email-toggle" checked style="opacity:0;width:0;height:0;"/>
+          <span style="position:absolute;inset:0;background:#6b0f1a;border-radius:26px;transition:0.3s;"></span>
+          <span style="position:absolute;left:3px;top:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:0.3s;transform:translateX(20px);"></span>
+        </label>
+      </div>
+
+      <!-- Upcoming -->
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin:1.25rem 0 0.75rem;">Upcoming Services</div>
+      <div style="background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);border-left:4px solid #90c8e8;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-weight:700;color:#1a1a2e;font-size:0.9rem;">🌿 Lawn Mowing + 🐾 Dog Waste</div>
+            <div style="font-size:0.8rem;color:#6b7a99;margin-top:0.25rem;">Saturday, March 8 at 10:00 AM</div>
+            <div style="font-size:0.8rem;color:#6b7a99;">142 Elm St, Springfield</div>
+          </div>
+          <span style="background:#fff3e0;color:#e65100;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;white-space:nowrap;">In 8 days</span>
+        </div>
+        <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
+          <button style="font-size:0.75rem;padding:0.35rem 0.9rem;border-radius:20px;border:1.5px solid #e3edf8;background:#fff;color:#6b7a99;cursor:pointer;font-family:'DM Sans',sans-serif;">Reschedule</button>
+          <button style="font-size:0.75rem;padding:0.35rem 0.9rem;border-radius:20px;border:1.5px solid #fde8e8;background:#fff;color:#c62828;cursor:pointer;font-family:'DM Sans',sans-serif;">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Subscription -->
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin:1.25rem 0 0.75rem;">Active Subscription</div>
+      <div style="background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);border-left:4px solid #6b0f1a;margin-bottom:0.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-weight:700;color:#1a1a2e;font-size:0.9rem;">🐾 Dog Waste Weekly Cleanup</div>
+            <div style="font-size:0.8rem;color:#6b7a99;margin-top:0.25rem;">Every Saturday · $18/visit · Billed monthly</div>
+            <div style="font-size:0.8rem;color:#6b7a99;">2 dogs · Next visit: Mar 1</div>
+          </div>
+          <span style="background:#e8f5e9;color:#2e7d32;font-size:0.7rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;">Active</span>
+        </div>
+        <button style="margin-top:0.75rem;font-size:0.75rem;padding:0.35rem 0.9rem;border-radius:20px;border:1.5px solid #fde8e8;background:#fff;color:#c62828;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="cancelSub()">Cancel Subscription</button>
+      </div>
+
+      <!-- Service History -->
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin:1.25rem 0 0.75rem;">Service History</div>
+      <div id="service-history"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ADMIN DASHBOARD
+══════════════════════════════════════════ -->
+<div id="admin-portal" style="display:none;position:fixed;inset:0;z-index:9991;background:#f0f4ff;overflow-y:auto;font-family:'DM Sans',sans-serif;">
+  <div style="background:linear-gradient(135deg,#1a1a2e,#2d3561);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;">
+    <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#fff;">GreenCut<span style="color:#90c8e8;">Pro</span> <span style="font-size:0.8rem;color:rgba(255,255,255,0.5);font-family:'DM Sans',sans-serif;">Admin</span></div>
+    <button onclick="document.getElementById('admin-portal').style.display='none'" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:0.4rem 1rem;border-radius:20px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Close</button>
+  </div>
+
+  <div style="max-width:900px;margin:0 auto;padding:1.5rem;">
+
+    <!-- Admin Login -->
+    <div id="admin-login" style="background:#fff;border-radius:20px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,0.08);margin-top:2rem;max-width:380px;margin-left:auto;margin-right:auto;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">⚙️</div>
+      <h2 style="font-family:'Playfair Display',serif;color:#1a1a2e;margin-bottom:0.5rem;">Admin Login</h2>
+      <p style="color:#6b7a99;font-size:0.85rem;margin-bottom:1.5rem;">Demo password: <strong>admin123</strong></p>
+      <input type="password" id="admin-pw" placeholder="Enter admin password" style="width:100%;padding:0.75rem 1rem;border:2px solid #e3edf8;border-radius:10px;font-family:'DM Sans',sans-serif;margin-bottom:1rem;outline:none;"/>
+      <button onclick="adminLogin()" style="width:100%;padding:0.9rem;border-radius:50px;background:#1a1a2e;color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Enter Dashboard →</button>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dash" style="display:none;">
+
+      <!-- KPI Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;" id="kpi-cards"></div>
+
+      <!-- Charts row -->
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:1rem;margin-bottom:1.5rem;">
+        <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin-bottom:1rem;">Revenue — Last 6 Months</div>
+          <canvas id="rev-chart" height="160"></canvas>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin-bottom:1rem;">Services Breakdown</div>
+          <canvas id="svc-chart" height="160"></canvas>
+        </div>
+      </div>
+
+      <!-- Recent Bookings -->
+      <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:1.5rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;">Recent Bookings</div>
+          <input type="text" placeholder="Search bookings…" style="padding:0.4rem 0.85rem;border:1.5px solid #e3edf8;border-radius:20px;font-size:0.8rem;font-family:'DM Sans',sans-serif;outline:none;" oninput="filterBookings(this.value)"/>
+        </div>
+        <div id="bookings-table"></div>
+      </div>
+
+      <!-- SMS Blast -->
+      <div style="background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin-bottom:1rem;">📱 Send SMS Blast to Customers</div>
+        <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;flex-wrap:wrap;">
+          <button class="sms-preset" onclick="setSMS(this,'🌸 Spring is here! Book your lawn cleanup and get FREE dog waste pickup on your first visit. Reply BOOK to schedule.')">Spring Promo</button>
+          <button class="sms-preset" onclick="setSMS(this,'⏰ Reminder: Your GreenCut Pro service is scheduled for tomorrow. We\'ll see you soon! Reply HELP for support.')">Service Reminder</button>
+          <button class="sms-preset" onclick="setSMS(this,'🎁 Share your referral code with a friend and you both get $10 off your next service!')">Referral Push</button>
+        </div>
+        <textarea id="sms-blast-text" rows="3" placeholder="Type your message to all customers…" style="width:100%;padding:0.75rem;border:2px solid #e3edf8;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.875rem;resize:vertical;outline:none;margin-bottom:0.75rem;"></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:0.8rem;color:#6b7a99;" id="sms-count">0 / 160 chars</span>
+          <button onclick="sendSMSBlast()" style="background:#6b0f1a;color:#fff;border:none;border-radius:50px;padding:0.65rem 1.75rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.875rem;cursor:pointer;">Send to All Customers 📤</button>
+        </div>
+        <div id="sms-sent-confirm" style="display:none;margin-top:0.75rem;background:#e8f5e9;border-radius:10px;padding:0.75rem;color:#2e7d32;font-size:0.85rem;text-align:center;">✅ SMS blast sent to 47 customers!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .gift-amt { background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);color:#fff;padding:0.4rem 1rem;border-radius:20px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.875rem;cursor:pointer;transition:all 0.15s; }
+  .gift-amt.active-amt, .gift-amt:hover { background:#90c8e8;border-color:#90c8e8;color:#6b0f1a; }
+  .sms-preset { background:#f0f4ff;border:1.5px solid #e3edf8;color:#6b7a99;padding:0.35rem 0.85rem;border-radius:20px;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.15s; }
+  .sms-preset:hover { background:#e3edf8;color:#1a1a2e; }
+  .area-grid { }
+  @media(max-width:768px) { .area-grid,.gift-grid { grid-template-columns:1fr !important; } }
+  .faq-item { border:1.5px solid #e3edf8;border-radius:14px;overflow:hidden;margin-bottom:0.75rem;background:#fff; }
+  .faq-q { display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;cursor:pointer;font-weight:600;font-size:0.9rem;color:#1a1a2e;transition:background 0.15s; }
+  .faq-q:hover { background:#f8f9ff; }
+  .faq-a { display:none;padding:0 1.25rem 1rem;font-size:0.875rem;color:#6b7a99;line-height:1.7; }
+  .faq-item.open .faq-a { display:block; }
+  .faq-item.open .faq-arrow { transform:rotate(180deg); }
+  .faq-arrow { transition:transform 0.2s;color:#90c8e8;font-size:1rem; }
+  .blog-card { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);transition:transform 0.2s,box-shadow 0.2s;cursor:pointer; }
+  .blog-card:hover { transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.1); }
+  .blog-thumb { height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem; }
+  .blog-body { padding:1.25rem; }
+  .blog-tag { font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#90c8e8;margin-bottom:0.4rem; }
+  .blog-title { font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#1a1a2e;margin-bottom:0.4rem;line-height:1.3; }
+  .blog-excerpt { font-size:0.8rem;color:#6b7a99;line-height:1.5; }
+  .admin-kpi { background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,0.05);text-align:center; }
+  .admin-kpi-num { font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:#6b0f1a; }
+  .admin-kpi-label { font-size:0.75rem;color:#6b7a99;margin-top:0.2rem; }
+  .booking-row { display:grid;grid-template-columns:1.5fr 1.2fr 0.8fr 0.8fr;gap:0.5rem;padding:0.75rem 0;border-bottom:1px solid #f0f0f0;font-size:0.825rem;align-items:center; }
+  .booking-row:last-child { border-bottom:none; }
+  .booking-row.header { font-weight:700;color:#6b7a99;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em; }
+</style>
+
+<script>
+// ── GALLERY ──
+(function(){
+  const items = [
+    {emoji:'🌿',before:'Overgrown front lawn, 6" grass',after:'Clean, even cut with crisp edges',tag:'Lawn Mowing'},
+    {emoji:'🍂',before:'Thick leaf coverage, debris everywhere',after:'Spotless yard, leaves bagged & removed',tag:'Yard Cleanup'},
+    {emoji:'🐾',before:'Pet waste scattered across backyard',after:'Fully cleared, gate locked, customer notified',tag:'Dog Waste Cleanup'},
+    {emoji:'✂️',before:'Overgrown hedges blocking windows',after:'Shaped & sculpted, clean sightlines',tag:'Hedge Trimming'},
+    {emoji:'🌱',before:'Patchy, thin grass with bare spots',after:'Overseeded, fertilized, lush & green',tag:'Fertilization'},
+    {emoji:'🏡',before:'Neglected property, weeds everywhere',after:'Full seasonal cleanup complete',tag:'Full Service'},
+  ];
+  const grid = document.getElementById('gallery-grid');
+  if(!grid) return;
+  items.forEach(item => {
+    const d = document.createElement('div');
+    d.style.cssText = 'border-radius:16px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.06);background:#fff;';
+    d.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;">
+        <div style="background:linear-gradient(135deg,#fde8e8,#faf0f0);padding:1.25rem;position:relative;">
+          <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#c62828;margin-bottom:0.5rem;">Before</div>
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">${item.emoji}</div>
+          <div style="font-size:0.78rem;color:#6b7a99;line-height:1.4;">${item.before}</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#e8f5e9,#f0faf0);padding:1.25rem;position:relative;">
+          <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#2e7d32;margin-bottom:0.5rem;">After ✓</div>
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">✅</div>
+          <div style="font-size:0.78rem;color:#6b7a99;line-height:1.4;">${item.after}</div>
+        </div>
+      </div>
+      <div style="padding:0.75rem 1rem;background:#f8f9ff;border-top:1px solid #e3edf8;">
+        <span style="font-size:0.7rem;font-weight:700;background:#e3edf8;color:#5a8abf;padding:0.2rem 0.65rem;border-radius:20px;">${item.tag}</span>
+      </div>`;
+    grid.appendChild(d);
+  });
+})();
+
+// ── ZIP CHECKER ──
+const serviceZips = {
+  '62701':'Springfield (Downtown)','62702':'Springfield (North)','62703':'Springfield (South)',
+  '62704':'Springfield (West)','62705':'Springfield (Central)','62706':'Springfield (East)',
+  '62707':'Chatham','62708':'Sherman','62711':'Rochester','62712':'Riverton',
+  '62769':'Auburn','62801':'Carlisle','62234':'Collinsville'
+};
+const zipList = document.getElementById('zip-list');
+if(zipList) Object.entries(serviceZips).slice(0,10).forEach(([z,n]) => {
+  const b = document.createElement('span');
+  b.style.cssText = 'background:#fff;border:1.5px solid #e3edf8;border-radius:20px;padding:0.3rem 0.75rem;font-size:0.78rem;color:#1a1a2e;font-weight:500;';
+  b.textContent = z + ' · ' + n; zipList.appendChild(b);
+});
+window.checkZip = function(){
+  const z = document.getElementById('zip-input').value.trim();
+  const res = document.getElementById('zip-result');
+  if(z.length<5){res.textContent='';return;}
+  if(serviceZips[z]) res.innerHTML = `<span style="color:#2e7d32;font-weight:600;">✅ Great news! We serve ${serviceZips[z]}. <a href="#book" style="color:#6b0f1a;">Book now →</a></span>`;
+  else res.innerHTML = `<span style="color:#e65100;font-weight:600;">😔 We don't cover that zip yet — but we're expanding! <a href="#book" style="color:#6b0f1a;">Join our waitlist →</a></span>`;
+};
+
+// ── FAQ ──
+(function(){
+  const faqs = [
+    {q:'How much does lawn mowing cost?', a:'Our lawn mowing service starts at $45 and includes edging and bagging clippings. Pricing varies based on lawn size — upload photos when booking for an accurate quote.'},
+    {q:'How does the dog waste subscription work?', a:'Subscribe for weekly dog waste cleanup at $18/visit, billed monthly. Cancel anytime with no fees. We come the same day each week, and you'll receive a photo confirmation that your gate was latched after every visit.'},
+    {q:'Can I bundle lawn mowing with dog waste cleanup?', a:'Absolutely! Our Lawn + Dog Waste Bundle starts at $55 for a one-time visit, or $70/visit on a weekly subscription — saving you money vs. booking separately.'},
+    {q:'What areas do you serve?', a:'We serve Springfield and surrounding communities including Chatham, Sherman, Rochester, Riverton, and more. Check the service area map above or enter your zip code to confirm we cover your neighborhood.'},
+    {q:'How do I know the job was completed?', a:'After every service, your crew takes before & after photos, completes a checklist (including gate-locked confirmation for dog waste jobs), and sends you a text and email with the photos and a summary report.'},
+    {q:'What payment methods do you accept?', a:'We accept all major credit cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay. Payments are processed securely through Stripe and are only charged after the service is complete.'},
+    {q:'How do I reschedule or cancel a booking?', a:'Log in to your customer account to reschedule or cancel upcoming services. You can also call us at (555) 000-1234. We ask for at least 24 hours notice for cancellations.'},
+    {q:'Do you offer free estimates?', a:'Yes! Upload photos of your lawn when booking and we'll provide an accurate estimate before confirming your appointment. No surprises.'},
+  ];
+  const list = document.getElementById('faq-list');
+  if(!list) return;
+  faqs.forEach((f,i) => {
+    const d = document.createElement('div'); d.className='faq-item';
+    d.innerHTML=`<div class="faq-q" onclick="toggleFaq(${i})"><span>${f.q}</span><span class="faq-arrow">▾</span></div><div class="faq-a">${f.a}</div>`;
+    list.appendChild(d);
+  });
+})();
+window.toggleFaq = function(i){
+  const items = document.querySelectorAll('.faq-item');
+  items[i].classList.toggle('open');
+};
+
+// ── BLOG ──
+(function(){
+  const posts = [
+    {emoji:'🌱',tag:'Spring Tips',title:'5 Ways to Get Your Lawn Ready for Spring',excerpt:'After a long winter, your lawn needs some TLC. Here's our pro checklist for the perfect spring revival.', color:'#e8f5e9'},
+    {emoji:'🐾',tag:'Pet Owners',title:'Why Weekly Dog Waste Removal Matters for Your Lawn',excerpt:'Pet waste is more than just a nuisance — it can kill grass and contaminate soil. Here's what you need to know.',color:'#fde8e8'},
+    {emoji:'💧',tag:'Lawn Health',title:'How Often Should You Water Your Lawn in Summer?',excerpt:'Overwatering is just as harmful as underwatering. We break down the ideal watering schedule by grass type.',color:'#e3edf8'},
+    {emoji:'✂️',tag:'Maintenance',title:'The Right Way to Edge Your Lawn (And Why It Matters)',excerpt:'Clean edges make a massive difference in how your lawn looks. Here's the technique our crew uses on every job.',color:'#fff3e0'},
+    {emoji:'🍂',tag:'Fall Prep',title:'Fall Lawn Care Checklist: What to Do Before the First Frost',excerpt:'Don't let your lawn go dormant without these essential fall prep steps that set you up for a lush spring.',color:'#f3e5f5'},
+    {emoji:'🌿',tag:'DIY vs Pro',title:'DIY Lawn Care vs. Hiring a Pro: A Honest Comparison',excerpt:'We break down the real costs, time commitment, and results of doing it yourself vs. hiring GreenCut Pro.',color:'#e0f7fa'},
+  ];
+  const grid = document.getElementById('blog-grid');
+  if(!grid) return;
+  posts.forEach(p => {
+    const d = document.createElement('div'); d.className='blog-card';
+    d.innerHTML=`<div class="blog-thumb" style="background:${p.color}">${p.emoji}</div><div class="blog-body"><div class="blog-tag">${p.tag}</div><div class="blog-title">${p.title}</div><div class="blog-excerpt">${p.excerpt}</div><div style="margin-top:0.75rem;font-size:0.78rem;color:#90c8e8;font-weight:600;">Read more →</div></div>`;
+    grid.appendChild(d);
+  });
+})();
+
+// ── GIFT CARDS ──
+let giftAmt = 25;
+window.selectGift = function(btn,amt){
+  document.querySelectorAll('.gift-amt').forEach(b=>b.classList.remove('active-amt'));
+  btn.classList.add('active-amt');
+  giftAmt = amt;
+  document.getElementById('custom-gift-wrap').style.display = amt===0?'block':'none';
+};
+window.purchaseGift = function(){
+  const amt = giftAmt===0 ? (document.getElementById('custom-gift-amt').value||'?') : giftAmt;
+  const c = document.getElementById('gift-confirm');
+  c.style.display='block'; c.textContent=`✅ $${amt} gift card added! Proceed to checkout.`;
+};
+
+// ── REFERRAL ──
+(function(){
+  const suffix = Math.random().toString(36).substring(2,6).toUpperCase();
+  const el = document.getElementById('ref-suffix'); if(el) el.textContent=suffix;
+})();
+window.copyRef = function(){
+  const code = document.getElementById('ref-code').textContent;
+  navigator.clipboard.writeText(code).then(()=>alert('Referral code copied: '+code)).catch(()=>alert('Your code: '+code));
+};
+window.shareRef = function(){
+  const code = document.getElementById('ref-code').textContent;
+  if(navigator.share) navigator.share({title:'GreenCut Pro Referral',text:`Use my referral code ${code} and we both get $10 off! Book at greencutpro.com`});
+  else alert('Share your code: '+code);
+};
+
+// ── CUSTOMER PORTAL ──
+window.openCustomerPortal = function(){ document.getElementById('customer-portal').style.display='block'; };
+window.custLogin = function(){
+  const email = document.getElementById('cust-email').value;
+  if(!email){alert('Please enter your email');return;}
+  const name = email.split('@')[0].replace(/[^a-z]/gi,' ').replace(/\w/g,c=>c.toUpperCase());
+  document.getElementById('cust-login').style.display='none';
+  document.getElementById('cust-dashboard').style.display='block';
+  document.getElementById('cust-welcome-name').textContent=name;
+  const hist = document.getElementById('service-history');
+  const history=[
+    {date:'Feb 15, 2026',svc:'Lawn Mowing + Dog Waste',amt:'$63',status:'Completed'},
+    {date:'Feb 8, 2026',svc:'Dog Waste Cleanup (Weekly)',amt:'$18',status:'Completed'},
+    {date:'Feb 1, 2026',svc:'Dog Waste Cleanup (Weekly)',amt:'$18',status:'Completed'},
+  ];
+  hist.innerHTML=history.map(h=>`<div style="background:#fff;border-radius:12px;padding:1rem 1.25rem;margin-bottom:0.5rem;box-shadow:0 1px 6px rgba(0,0,0,0.04);display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;"><div><div style="font-weight:600;color:#1a1a2e;">${h.svc}</div><div style="color:#6b7a99;font-size:0.78rem;">${h.date}</div></div><div style="text-align:right;"><div style="font-weight:700;color:#6b0f1a;">${h.amt}</div><div style="font-size:0.7rem;background:#e8f5e9;color:#2e7d32;padding:0.15rem 0.5rem;border-radius:10px;margin-top:0.2rem;">${h.status}</div></div></div>`).join('');
+};
+window.toggleSMS = function(cb){
+  const knob = document.getElementById('sms-knob');
+  const slider = document.getElementById('sms-slider');
+  if(cb.checked){ knob.style.transform='translateX(20px)'; slider.style.background='#6b0f1a'; }
+  else{ knob.style.transform='translateX(0)'; slider.style.background='#ccc'; }
+};
+window.cancelSub = function(){ if(confirm('Cancel your weekly dog waste subscription?')) alert('Subscription cancelled. You can resubscribe anytime.'); };
+
+// ── ADMIN ──
+window.openAdminPortal = function(){ document.getElementById('admin-portal').style.display='block'; };
+window.adminLogin = function(){
+  if(document.getElementById('admin-pw').value==='admin123'){
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-dash').style.display='block';
+    buildAdminDash();
+  } else alert('Incorrect password');
+};
+
+const allBookings = [
+  {name:'Michael Roberts',service:'Lawn + Dog Waste',date:'Mar 8',amount:'$63',status:'Confirmed'},
+  {name:'Sarah Liu',service:'Dog Waste Weekly',date:'Mar 1',amount:'$18',status:'Confirmed'},
+  {name:'David Kim',service:'Full Yard Cleanup',date:'Feb 28',amount:'$120',status:'Completed'},
+  {name:'Amy Chen',service:'Hedge Trimming',date:'Feb 27',amount:'$65',status:'Completed'},
+  {name:'Tom Bradley',service:'Lawn Mowing',date:'Feb 26',amount:'$45',status:'Completed'},
+  {name:'Lisa Park',service:'Dog Waste Weekly',date:'Feb 26',amount:'$18',status:'Completed'},
+  {name:'James Wilson',service:'Fertilization',date:'Mar 10',amount:'$85',status:'Pending'},
+  {name:'Maria Garcia',service:'Lawn + Dog Waste',date:'Mar 12',amount:'$70',status:'Pending'},
+];
+
+function buildAdminDash(){
+  const kpis=[
+    {num:'$484',label:'Revenue This Month',color:'#6b0f1a'},
+    {num:'8',label:'Bookings This Month',color:'#5a8abf'},
+    {num:'3',label:'Active Subscriptions',color:'#2e7d32'},
+    {num:'4.9★',label:'Avg. Rating',color:'#f5a623'},
+  ];
+  document.getElementById('kpi-cards').innerHTML = kpis.map(k=>`<div class="admin-kpi"><div class="admin-kpi-num" style="color:${k.color}">${k.num}</div><div class="admin-kpi-label">${k.label}</div></div>`).join('');
+  renderBookingsTable(allBookings);
+  buildCharts();
+}
+
+window.filterBookings = function(q){
+  const filtered = allBookings.filter(b=>b.name.toLowerCase().includes(q.toLowerCase())||b.service.toLowerCase().includes(q.toLowerCase()));
+  renderBookingsTable(filtered);
+};
+
+function renderBookingsTable(data){
+  const t = document.getElementById('bookings-table');
+  const statusColor = s => s==='Completed'?'#2e7d32':s==='Confirmed'?'#1565c0':'#e65100';
+  const statusBg = s => s==='Completed'?'#e8f5e9':s==='Confirmed'?'#e3f2fd':'#fff3e0';
+  t.innerHTML = `<div class="booking-row header"><span>Customer</span><span>Service</span><span>Date</span><span>Amount</span></div>`+
+    data.map(b=>`<div class="booking-row"><span style="font-weight:600;color:#1a1a2e;">${b.name}</span><span style="color:#6b7a99;font-size:0.78rem;">${b.service}</span><span style="color:#6b7a99;">${b.date}</span><span><span style="font-weight:700;color:#6b0f1a;">${b.amount}</span> <span style="font-size:0.7rem;background:${statusBg(b.status)};color:${statusColor(b.status)};padding:0.15rem 0.5rem;border-radius:10px;">${b.status}</span></span></div>`).join('');
+}
+
+function buildCharts(){
+  // Revenue bar chart
+  const rCtx = document.getElementById('rev-chart').getContext('2d');
+  const months=['Sep','Oct','Nov','Dec','Jan','Feb'];
+  const revData=[320,410,380,520,460,484];
+  const barW=40,gap=20,padL=30,padB=30,h=160;
+  const canvas=document.getElementById('rev-chart');
+  canvas.width=canvas.parentElement.offsetWidth-48||400;
+  const w=canvas.width; const maxV=Math.max(...revData)*1.15;
+  rCtx.clearRect(0,0,w,h);
+  revData.forEach((v,i)=>{
+    const x=padL+i*(barW+gap); const bh=(v/maxV)*(h-padB-10); const y=h-padB-bh;
+    rCtx.fillStyle= i===5?'#6b0f1a':'#d4a0aa';
+    rCtx.beginPath(); rCtx.roundRect(x,y,barW,bh,4); rCtx.fill();
+    rCtx.fillStyle='#6b7a99'; rCtx.font='11px DM Sans,sans-serif'; rCtx.textAlign='center';
+    rCtx.fillText(months[i],x+barW/2,h-8);
+    if(i===5){rCtx.fillStyle='#6b0f1a';rCtx.font='bold 11px DM Sans,sans-serif';rCtx.fillText('$'+v,x+barW/2,y-4);}
+  });
+
+  // Donut chart
+  const sCtx = document.getElementById('svc-chart').getContext('2d');
+  const sCanvas=document.getElementById('svc-chart');
+  sCanvas.width=sCanvas.parentElement.offsetWidth-48||220; sCanvas.height=160;
+  const sw=sCanvas.width; const cx=sw/2,cy=75,r=55;
+  const svcs=[{label:'Lawn Mowing',val:38,color:'#6b0f1a'},{label:'Dog Waste',val:28,color:'#90c8e8'},{label:'Cleanup',val:18,color:'#8b1a2a'},{label:'Other',val:16,color:'#d4a0aa'}];
+  let startAngle=-Math.PI/2;
+  svcs.forEach(s=>{
+    const slice=(s.val/100)*2*Math.PI;
+    sCtx.beginPath(); sCtx.moveTo(cx,cy); sCtx.arc(cx,cy,r,startAngle,startAngle+slice);
+    sCtx.closePath(); sCtx.fillStyle=s.color; sCtx.fill();
+    startAngle+=slice;
+  });
+  sCtx.beginPath(); sCtx.arc(cx,cy,30,0,2*Math.PI); sCtx.fillStyle='#fff'; sCtx.fill();
+  sCtx.fillStyle='#1a1a2e'; sCtx.font='bold 13px DM Sans,sans-serif'; sCtx.textAlign='center';
+  sCtx.fillText('Jobs',cx,cy+5);
+  const legendY=h-20; svcs.forEach((s,i)=>{
+    const lx=4+i*((sw-8)/4);
+    sCtx.fillStyle=s.color; sCtx.fillRect(lx,legendY,10,10);
+    sCtx.fillStyle='#6b7a99'; sCtx.font='9px DM Sans,sans-serif'; sCtx.textAlign='left';
+    sCtx.fillText(s.label,lx+13,legendY+9);
+  });
+}
+
+// ── SMS BLAST ──
+window.setSMS = function(btn,text){ document.getElementById('sms-blast-text').value=text; updateSMSCount(); };
+const smsText = document.getElementById('sms-blast-text');
+if(smsText) smsText.addEventListener('input',updateSMSCount);
+function updateSMSCount(){ const t=document.getElementById('sms-blast-text'); if(!t)return; document.getElementById('sms-count').textContent=t.value.length+' / 160 chars'; }
+window.sendSMSBlast = function(){
+  const c=document.getElementById('sms-sent-confirm'); c.style.display='block';
+  setTimeout(()=>c.style.display='none',4000);
+};
+</script>
+
+<!-- ═══════════════════════════════════════════
+     CREW PORTAL PAGE (hidden by default)
+     Access at: yoursite.com/#crew
+════════════════════════════════════════════ -->
+<style>
+  #crew-portal {
+    display: none;
+    position: fixed; inset: 0; z-index: 99999;
+    background: #f0f4ff;
+    font-family: 'DM Sans', sans-serif;
+    overflow-y: auto;
+  }
+  #crew-portal.active { display: block; }
+
+  .crew-nav {
+    background: linear-gradient(135deg, #6b0f1a, #8b1a2a);
+    padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .crew-nav-logo { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 900; }
+  .crew-nav-logo span { color: #90c8e8; }
+  .crew-nav-badge { background: #90c8e8; color: #6b0f1a; font-size: 0.7rem; font-weight: 800; padding: 0.25rem 0.75rem; border-radius: 20px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .crew-exit { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+  .crew-body { max-width: 480px; margin: 0 auto; padding: 1.5rem; }
+
+  /* Login */
+  .crew-login {
+    background: #fff; border-radius: 20px; padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08); margin-top: 2rem;
+    text-align: center;
+  }
+  .crew-login h2 { font-family: 'Playfair Display', serif; color: #6b0f1a; margin-bottom: 0.5rem; }
+  .crew-login p { color: #6b7a99; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .crew-pin-inputs { display: flex; gap: 0.75rem; justify-content: center; margin-bottom: 1.5rem; }
+  .pin-digit {
+    width: 52px; height: 60px; border: 2px solid #e3edf8; border-radius: 12px;
+    text-align: center; font-size: 1.5rem; font-weight: 700; color: #6b0f1a;
+    font-family: 'DM Sans', sans-serif; outline: none; background: #f8f9ff;
+    transition: border-color 0.15s;
+  }
+  .pin-digit:focus { border-color: #90c8e8; background: #fff; }
+  .pin-error { color: #e53935; font-size: 0.85rem; margin-bottom: 1rem; display: none; }
+  .btn-crew-login {
+    width: 100%; padding: 0.9rem; border-radius: 50px;
+    background: #6b0f1a; color: #fff; border: none;
+    font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .btn-crew-login:hover { background: #8b1a2a; }
+
+  /* Dashboard */
+  .crew-dashboard { display: none; }
+  .crew-greeting {
+    background: linear-gradient(135deg, #6b0f1a, #8b1a2a);
+    border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; color: #fff;
+  }
+  .crew-greeting h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.25rem; }
+  .crew-greeting p { color: rgba(255,255,255,0.75); font-size: 0.85rem; }
+
+  .job-card {
+    background: #fff; border-radius: 16px; padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #90c8e8; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .job-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .job-card.active-job { border-left-color: #6b0f1a; }
+  .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+  .job-name { font-weight: 700; color: #1a1a2e; font-size: 0.95rem; }
+  .job-service { font-size: 0.8rem; color: #6b7a99; margin-top: 0.2rem; }
+  .job-addr { font-size: 0.8rem; color: #6b7a99; margin-top: 0.2rem; }
+  .job-status {
+    font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.75rem;
+    border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+  }
+  .status-pending { background: #fff3e0; color: #e65100; }
+  .status-in-progress { background: #e3f2fd; color: #1565c0; }
+  .status-done { background: #e8f5e9; color: #2e7d32; }
+
+  /* Job detail */
+  .job-detail { display: none; }
+  .job-detail.open { display: block; }
+  .detail-card { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 1rem; }
+  .detail-card h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #90c8e8; margin-bottom: 1rem; }
+
+  /* Photo capture */
+  .photo-section { margin-bottom: 1rem; }
+  .photo-label { font-size: 0.8rem; font-weight: 700; color: #1a1a2e; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .capture-area {
+    border: 2px dashed #90c8e8; border-radius: 12px; padding: 1.5rem;
+    text-align: center; cursor: pointer; background: #f8f9ff;
+    transition: all 0.15s; position: relative; overflow: hidden;
+  }
+  .capture-area:hover { background: #eef6fc; border-color: #5aaedb; }
+  .capture-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .capture-icon { font-size: 2rem; margin-bottom: 0.4rem; }
+  .capture-text { font-size: 0.8rem; color: #6b7a99; }
+  .capture-text strong { color: #5aaedb; }
+  .captured-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-top: 0.75rem; }
+  .captured-thumb { aspect-ratio: 1; border-radius: 8px; overflow: hidden; position: relative; }
+  .captured-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .captured-thumb .thumb-remove { position: absolute; top: 3px; right: 3px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 18px; height: 18px; font-size: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .captured-thumb .thumb-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(107,15,26,0.75); color: #fff; font-size: 0.55rem; font-weight: 700; text-align: center; padding: 2px; }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.6rem; }
+  .check-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.75rem; border-radius: 10px; border: 1.5px solid #e3edf8;
+    cursor: pointer; transition: all 0.15s; background: #f8f9ff;
+  }
+  .check-item.checked { background: #e8f5e9; border-color: #81c784; }
+  .check-box {
+    width: 22px; height: 22px; border-radius: 6px; border: 2px solid #ccc;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    font-size: 0.75rem; transition: all 0.15s;
+  }
+  .check-item.checked .check-box { background: #2e7d32; border-color: #2e7d32; color: #fff; }
+  .check-text { font-size: 0.875rem; color: #1a1a2e; font-weight: 500; }
+
+  /* Signature */
+  .sig-wrap { border: 2px solid #e3edf8; border-radius: 10px; overflow: hidden; background: #fff; }
+  canvas#sig-canvas { display: block; width: 100%; height: 120px; cursor: crosshair; touch-action: none; }
+  .sig-actions { display: flex; justify-content: flex-end; padding: 0.4rem 0.75rem; border-top: 1px solid #e3edf8; }
+  .sig-clear { font-size: 0.75rem; color: #6b7a99; background: none; border: none; cursor: pointer; text-decoration: underline; }
+
+  /* Message preview */
+  .msg-preview {
+    background: #f0f7ff; border: 1.5px solid #90c8e8; border-radius: 12px;
+    padding: 1rem; font-size: 0.85rem; color: #1a1a2e; line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  .msg-thumb-row { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+  .msg-thumb { width: 56px; height: 56px; border-radius: 8px; overflow: hidden; }
+  .msg-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Send button */
+  .btn-send-report {
+    width: 100%; padding: 1rem; border-radius: 50px;
+    background: linear-gradient(135deg, #6b0f1a, #8b1a2a); color: #fff;
+    border: none; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+    cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(107,15,26,0.3);
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .btn-send-report:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(107,15,26,0.4); }
+  .btn-back-jobs { background: none; border: none; color: #6b7a99; font-size: 0.85rem; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.3rem; }
+
+  /* Sent success */
+  .report-sent {
+    display: none; text-align: center; padding: 2rem 1rem;
+    background: #fff; border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .report-sent .sent-icon { font-size: 3.5rem; margin-bottom: 0.75rem; }
+  .report-sent h3 { font-family: 'Playfair Display', serif; color: #6b0f1a; margin-bottom: 0.5rem; }
+  .report-sent p { color: #6b7a99; font-size: 0.9rem; line-height: 1.6; }
+</style>
+
+<!-- Crew Portal DOM -->
+<div id="crew-portal">
+  <div class="crew-nav">
+    <div>
+      <div class="crew-nav-logo">GreenCut<span>Pro</span></div>
+    </div>
+    <div class="crew-nav-badge">🛠 Crew Portal</div>
+    <button class="crew-exit" onclick="exitCrew()">← Back to Site</button>
+  </div>
+
+  <div class="crew-body">
+
+    <!-- LOGIN -->
+    <div class="crew-login" id="crew-login">
+      <div style="font-size:2.5rem;margin-bottom:0.75rem;">🌿</div>
+      <h2>Crew Check-In</h2>
+      <p>Enter your 4-digit crew PIN to access today's jobs</p>
+      <div class="crew-pin-inputs">
+        <input class="pin-digit" maxlength="1" type="password" inputmode="numeric" id="p1" oninput="pinNext(this,'p2')" />
+        <input class="pin-digit" maxlength="1" type="password" inputmode="numeric" id="p2" oninput="pinNext(this,'p3')" />
+        <input class="pin-digit" maxlength="1" type="password" inputmode="numeric" id="p3" oninput="pinNext(this,'p4')" />
+        <input class="pin-digit" maxlength="1" type="password" inputmode="numeric" id="p4" oninput="pinNext(this,null)" />
+      </div>
+      <div class="pin-error" id="pin-error">❌ Incorrect PIN. Try again.</div>
+      <button class="btn-crew-login" onclick="checkPin()">Enter Portal</button>
+      <p style="margin-top:1rem;font-size:0.75rem;color:#b0b8cc;">Demo PIN: <strong>1234</strong></p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="crew-dashboard" id="crew-dashboard">
+      <div class="crew-greeting">
+        <h3>Good morning, Team! 👋</h3>
+        <p id="crew-date-label">Loading today's date…</p>
+      </div>
+
+      <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b7a99;margin-bottom:0.75rem;">Today's Jobs</div>
+
+      <div id="job-list">
+        <div class="job-card" onclick="openJob(0)">
+          <div class="job-card-header">
+            <div><div class="job-name">Michael Roberts</div><div class="job-service">🌿 Lawn Mowing + 🐾 Dog Waste</div><div class="job-addr">📍 142 Elm St, Springfield</div></div>
+            <span class="job-status status-pending">Pending</span>
+          </div>
+        </div>
+        <div class="job-card" onclick="openJob(1)">
+          <div class="job-card-header">
+            <div><div class="job-name">Sarah Liu</div><div class="job-service">🐾 Dog Waste Weekly Sub</div><div class="job-addr">📍 87 Oak Ave, Springfield</div></div>
+            <span class="job-status status-in-progress">In Progress</span>
+          </div>
+        </div>
+        <div class="job-card" onclick="openJob(2)">
+          <div class="job-card-header">
+            <div><div class="job-name">David Kim</div><div class="job-service">🌿 Full Yard Cleanup</div><div class="job-addr">📍 310 Maple Dr, Springfield</div></div>
+            <span class="job-status status-done">Completed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOB DETAIL -->
+      <div class="job-detail" id="job-detail">
+        <button class="btn-back-jobs" onclick="backToJobs()">← Back to Jobs</button>
+
+        <div class="detail-card">
+          <h4>📋 Job Info</h4>
+          <div id="jd-info" style="font-size:0.875rem;color:#1a1a2e;line-height:1.8;"></div>
+        </div>
+
+        <!-- PHOTOS -->
+        <div class="detail-card">
+          <h4>📸 Job Photos</h4>
+
+          <div class="photo-section">
+            <div class="photo-label">Before Photos</div>
+            <div class="capture-area" id="before-area">
+              <input type="file" accept="image/*" multiple capture="environment" onchange="capturePhoto(event,'before')" />
+              <div class="capture-icon">📷</div>
+              <div class="capture-text"><strong>Tap to take photo</strong> or choose from gallery</div>
+            </div>
+            <div class="captured-grid" id="before-grid"></div>
+          </div>
+
+          <div class="photo-section">
+            <div class="photo-label">After Photos</div>
+            <div class="capture-area" id="after-area">
+              <input type="file" accept="image/*" multiple capture="environment" onchange="capturePhoto(event,'after')" />
+              <div class="capture-icon">✅</div>
+              <div class="capture-text"><strong>Tap to take photo</strong> or choose from gallery</div>
+            </div>
+            <div class="captured-grid" id="after-grid"></div>
+          </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="detail-card" id="checklist-card">
+          <h4>✅ Completion Checklist</h4>
+          <div class="checklist" id="job-checklist"></div>
+        </div>
+
+        <!-- SIGNATURE -->
+        <div class="detail-card">
+          <h4>✍️ Crew Member Signature</h4>
+          <div class="sig-wrap">
+            <canvas id="sig-canvas" width="420" height="120"></canvas>
+          </div>
+          <div class="sig-actions"><button class="sig-clear" onclick="clearSig()">Clear signature</button></div>
+        </div>
+
+        <!-- MESSAGE PREVIEW -->
+        <div class="detail-card">
+          <h4>📩 Customer Message Preview</h4>
+          <div class="msg-preview" id="msg-preview-text"></div>
+          <div class="msg-thumb-row" id="msg-thumb-row"></div>
+          <p style="font-size:0.75rem;color:#b0b8cc;margin-top:0.75rem;">This message + photos will be sent to the customer via text & email.</p>
+        </div>
+
+        <!-- SEND -->
+        <div id="send-section">
+          <button class="btn-send-report" onclick="sendReport()">
+            <span>📤</span> Send Report to Customer
+          </button>
+        </div>
+
+        <div class="report-sent" id="report-sent">
+          <div class="sent-icon">🎉</div>
+          <h3>Report Sent!</h3>
+          <p id="report-sent-msg">The customer has been notified with photos and a completion summary. Great work today!</p>
+          <button class="btn-crew-login" style="margin-top:1.5rem;width:auto;padding:0.75rem 2rem;" onclick="backToJobs()">← Back to Jobs</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Crew Portal Access Button (hidden link in footer area) -->
+<div style="text-align:center;padding:0.5rem;background:#6b0f1a;">
+  <button onclick="openCrew()"  style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:0.7rem;cursor:pointer;font-family:'DM Sans',sans-serif;">🛠 Crew Portal</button>
+</div>
+
+<script>
+(function() {
+  const CREW_PIN = '1234';
+
+  const jobs = [
+    { name: 'Michael Roberts', address: '142 Elm St, Springfield', email: 'michael@example.com', phone: '(555) 111-2222', service: 'Lawn Mowing + Dog Waste Cleanup', notes: 'Gate code: 4821. 2 dogs (Labrador). Mow backyard and front. Pick up all pet waste.', status: 'pending', hasDog: true },
+    { name: 'Sarah Liu', address: '87 Oak Ave, Springfield', email: 'sarah@example.com', phone: '(555) 333-4444', service: 'Dog Waste Weekly Subscription', notes: '1 small dog. Gate on left side of house. Please latch gate when done.', status: 'in-progress', hasDog: true },
+    { name: 'David Kim', address: '310 Maple Dr, Springfield', email: 'david@example.com', phone: '(555) 555-6666', service: 'Full Yard Cleanup', notes: 'Leaf removal front and back. Haul all debris.', status: 'done', hasDog: false }
+  ];
+
+  let currentJob = null;
+  let beforePhotos = [], afterPhotos = [];
+  let sigCanvas, sigCtx, sigDrawing = false, sigHasSig = false;
+  let checklistState = {};
+
+  function getChecklists(job) {
+    const base = [
+      { id: 'arrived', label: '📍 Arrived at property' },
+      { id: 'intro_photo', label: '📷 Took before photos' },
+      { id: 'service_done', label: '✅ Service completed' },
+      { id: 'after_photo', label: '📸 Took after photos' },
+    ];
+    const lawn = [
+      { id: 'edged', label: '🌿 Lawn mowed & edged' },
+      { id: 'clippings', label: '🗑 Clippings bagged & removed' },
+    ];
+    const dog = [
+      { id: 'waste_picked', label: '🐾 All pet waste collected' },
+      { id: 'bags_disposed', label: '🗑 Waste bags properly disposed' },
+      { id: 'gate_checked', label: '🔒 Gate securely latched/locked' },
+      { id: 'gate_photo', label: '📸 Photo taken of locked gate' },
+    ];
+    const end = [
+      { id: 'property_clean', label: '🏡 Property left clean & tidy' },
+      { id: 'tools_clear', label: '🚛 All equipment loaded & cleared' },
+    ];
+    let list = [...base];
+    if (job.service.toLowerCase().includes('mow') || job.service.toLowerCase().includes('cleanup')) list = [...list, ...lawn];
+    if (job.hasDog) list = [...list, ...dog];
+    list = [...list, ...end];
+    return list;
+  }
+
+  function buildMessagePreview() {
+    if (!currentJob) return;
+    const job = jobs[currentJob];
+    const checkedItems = Object.entries(checklistState).filter(([,v])=>v).map(([k])=>k);
+    const gateConfirmed = checkedItems.includes('gate_checked');
+    const wasteConfirmed = checkedItems.includes('waste_picked');
+    const serviceConfirmed = checkedItems.includes('service_done');
+    const today = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+
+    let msg = `Hi ${job.name.split(' ')[0]}! 👋
+
+Great news — your GreenCut Pro service is complete!
+
+`;
+    msg += `📋 Service: ${job.service}
+`;
+    msg += `📅 Date: ${today}
+`;
+    msg += `📍 Address: ${job.address}
+
+`;
+    if (serviceConfirmed) msg += `✅ Service completed successfully.
+`;
+    if (wasteConfirmed) msg += `🐾 All pet waste has been collected and disposed of.
+`;
+    if (gateConfirmed) msg += `🔒 Your gate has been securely latched — your pets are safe!
+`;
+    msg += `
+📸 Before & after photos are attached to this message.
+`;
+    msg += `
+Thank you for choosing GreenCut Pro! If you have any questions, call us at (555) 000-1234.
+
+— The GreenCut Pro Crew 🌿`;
+
+    document.getElementById('msg-preview-text').textContent = msg;
+
+    // Thumbnail row
+    const thumbRow = document.getElementById('msg-thumb-row');
+    thumbRow.innerHTML = '';
+    [...beforePhotos, ...afterPhotos].slice(0,5).forEach(src => {
+      const d = document.createElement('div'); d.className = 'msg-thumb';
+      d.innerHTML = `<img src="${src}" />`;
+      thumbRow.appendChild(d);
+    });
+  }
+
+  window.openCrew = function() { document.getElementById('crew-portal').classList.add('active'); };
+  window.exitCrew = function() { document.getElementById('crew-portal').classList.remove('active'); };
+
+  window.pinNext = function(el, nextId) {
+    if (el.value && nextId) document.getElementById(nextId).focus();
+  };
+
+  window.checkPin = function() {
+    const pin = ['p1','p2','p3','p4'].map(id => document.getElementById(id).value).join('');
+    if (pin === CREW_PIN) {
+      document.getElementById('crew-login').style.display = 'none';
+      document.getElementById('crew-dashboard').style.display = 'block';
+      document.getElementById('crew-date-label').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+    } else {
+      document.getElementById('pin-error').style.display = 'block';
+      ['p1','p2','p3','p4'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('p1').focus();
+    }
+  };
+
+  window.openJob = function(idx) {
+    currentJob = idx;
+    beforePhotos = []; afterPhotos = [];
+    checklistState = {};
+    const job = jobs[idx];
+    document.getElementById('job-list').style.display = 'none';
+    document.getElementById('report-sent').style.display = 'none';
+    document.getElementById('send-section').style.display = 'block';
+    document.getElementById('job-detail').classList.add('open');
+    document.getElementById('before-grid').innerHTML = '';
+    document.getElementById('after-grid').innerHTML = '';
+    document.getElementById('msg-thumb-row').innerHTML = '';
+
+    document.getElementById('jd-info').innerHTML =
+      `<b>Customer:</b> ${job.name}<br><b>Address:</b> ${job.address}<br><b>Phone:</b> ${job.phone}<br><b>Service:</b> ${job.service}<br><b>Notes:</b> ${job.notes}`;
+
+    // Build checklist
+    const cl = document.getElementById('job-checklist');
+    cl.innerHTML = '';
+    getChecklists(job).forEach(item => {
+      checklistState[item.id] = false;
+      const d = document.createElement('div');
+      d.className = 'check-item'; d.id = 'ci-' + item.id;
+      d.innerHTML = `<div class="check-box" id="cb-${item.id}"></div><span class="check-text">${item.label}</span>`;
+      d.onclick = () => toggleCheck(item.id);
+      cl.appendChild(d);
+    });
+
+    buildMessagePreview();
+    initSig();
+  };
+
+  window.backToJobs = function() {
+    document.getElementById('job-list').style.display = 'block';
+    document.getElementById('job-detail').classList.remove('open');
+    currentJob = null;
+  };
+
+  window.toggleCheck = function(id) {
+    checklistState[id] = !checklistState[id];
+    const item = document.getElementById('ci-' + id);
+    const box = document.getElementById('cb-' + id);
+    item.classList.toggle('checked', checklistState[id]);
+    box.textContent = checklistState[id] ? '✓' : '';
+    buildMessagePreview();
+  };
+
+  window.capturePhoto = function(e, type) {
+    Array.from(e.target.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = ev => {
+        const src = ev.target.result;
+        if (type === 'before') beforePhotos.push(src);
+        else afterPhotos.push(src);
+        const grid = document.getElementById(type + '-grid');
+        const idx = (type === 'before' ? beforePhotos : afterPhotos).length - 1;
+        const d = document.createElement('div'); d.className = 'captured-thumb';
+        d.innerHTML = `<img src="${src}"><div class="thumb-label">${type.toUpperCase()}</div><button class="thumb-remove" onclick="removeThumb('${type}',${idx},this.parentElement)">✕</button>`;
+        grid.appendChild(d);
+        buildMessagePreview();
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  window.removeThumb = function(type, idx, el) {
+    if (type === 'before') beforePhotos.splice(idx,1);
+    else afterPhotos.splice(idx,1);
+    el.remove(); buildMessagePreview();
+  };
+
+  function initSig() {
+    sigCanvas = document.getElementById('sig-canvas');
+    sigCtx = sigCanvas.getContext('2d');
+    sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height);
+    sigCtx.strokeStyle = '#6b0f1a'; sigCtx.lineWidth = 2.5; sigCtx.lineCap = 'round';
+    sigHasSig = false; sigDrawing = false;
+    sigCanvas.onmousedown = e => { sigDrawing=true; sigCtx.beginPath(); sigCtx.moveTo(e.offsetX,e.offsetY); };
+    sigCanvas.onmousemove = e => { if(!sigDrawing)return; sigCtx.lineTo(e.offsetX,e.offsetY); sigCtx.stroke(); sigHasSig=true; };
+    sigCanvas.onmouseup = () => sigDrawing = false;
+    sigCanvas.ontouchstart = e => { e.preventDefault(); const t=e.touches[0]; const r=sigCanvas.getBoundingClientRect(); sigDrawing=true; sigCtx.beginPath(); sigCtx.moveTo(t.clientX-r.left,t.clientY-r.top); };
+    sigCanvas.ontouchmove = e => { e.preventDefault(); if(!sigDrawing)return; const t=e.touches[0]; const r=sigCanvas.getBoundingClientRect(); sigCtx.lineTo(t.clientX-r.left,t.clientY-r.top); sigCtx.stroke(); sigHasSig=true; };
+    sigCanvas.ontouchend = () => sigDrawing = false;
+  }
+
+  window.clearSig = function() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); sigHasSig=false; };
+
+  window.sendReport = function() {
+    const job = jobs[currentJob];
+    document.getElementById('send-section').style.display = 'none';
+    document.getElementById('report-sent').style.display = 'block';
+    document.getElementById('report-sent-msg').textContent =
+      `✅ Report & photos sent to ${job.name} at ${job.phone} and ${job.email}. Job marked complete. Great work today!`;
+    jobs[currentJob].status = 'done';
+  };
+})();
+</script>
+
+</body>
+</html>
+
+<!-- ── AI CHATBOT ── -->
+<style>
+  /* Bubble */
+  #chat-bubble {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #6b0f1a, #8b1a2a);
+    box-shadow: 0 6px 24px rgba(107,15,26,0.45);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: 3px solid #90c8e8;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1.6rem;
+  }
+  #chat-bubble:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(107,15,26,0.55); }
+  #chat-bubble .notif {
+    position: absolute; top: -4px; right: -4px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #90c8e8; color: #6b0f1a;
+    font-size: 0.65rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid #fff;
+  }
+
+  /* Window */
+  #chat-window {
+    position: fixed; bottom: 100px; right: 28px; z-index: 9998;
+    width: 360px; max-height: 540px;
+    background: #fff; border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    display: none; flex-direction: column; overflow: hidden;
+    border: 1.5px solid #e3edf8;
+    animation: chatPop 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #chat-window.open { display: flex; }
+  @keyframes chatPop {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Header */
+  .chat-header {
+    background: linear-gradient(135deg, #6b0f1a, #8b1a2a);
+    padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .chat-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #90c8e8; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { color: #fff; font-weight: 700; font-size: 0.95rem; }
+  .chat-header-status { color: rgba(255,255,255,0.7); font-size: 0.75rem; display: flex; align-items: center; gap: 0.3rem; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #90c8e8; display: inline-block; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .chat-close { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 1.3rem; cursor: pointer; padding: 0 0.25rem; transition: color 0.15s; }
+  .chat-close:hover { color: #fff; }
+
+  /* Messages */
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 1rem; display: flex;
+    flex-direction: column; gap: 0.75rem; background: #f8f9ff;
+    max-height: 340px;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
+
+  .msg { display: flex; gap: 0.5rem; align-items: flex-end; max-width: 90%; }
+  .msg.bot { align-self: flex-start; }
+  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+  .msg-avatar { width: 28px; height: 28px; border-radius: 50%; background: #8b1a2a; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+  .msg-bubble {
+    padding: 0.65rem 0.9rem; border-radius: 16px;
+    font-size: 0.875rem; line-height: 1.5; max-width: 260px;
+  }
+  .msg.bot .msg-bubble { background: #fff; color: #1a1a2e; border: 1.5px solid #e3edf8; border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .msg.user .msg-bubble { background: #6b0f1a; color: #fff; border-bottom-right-radius: 4px; }
+
+  /* Typing indicator */
+  .typing-bubble { display: flex; gap: 4px; padding: 0.65rem 0.9rem; align-items: center; }
+  .typing-bubble span { width: 7px; height: 7px; border-radius: 50%; background: #b0b8cc; animation: bounce 1.2s infinite; }
+  .typing-bubble span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-bubble span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+  /* Quick replies */
+  .quick-replies { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0.5rem 1rem 0; }
+  .qr-btn {
+    font-size: 0.75rem; padding: 0.35rem 0.75rem; border-radius: 20px;
+    border: 1.5px solid #90c8e8; background: #fff; color: #5aaedb;
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 600;
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .qr-btn:hover { background: #90c8e8; color: #fff; }
+
+  /* Input */
+  .chat-input-row {
+    display: flex; gap: 0.5rem; padding: 0.75rem 1rem;
+    border-top: 1.5px solid #e3edf8; background: #fff;
+  }
+  .chat-input-row input {
+    flex: 1; border: 1.5px solid #e3edf8; border-radius: 50px;
+    padding: 0.55rem 1rem; font-size: 0.875rem;
+    font-family: 'DM Sans', sans-serif; outline: none;
+    transition: border-color 0.15s; background: #f8f9ff;
+  }
+  .chat-input-row input:focus { border-color: #90c8e8; background: #fff; }
+  .chat-send {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #6b0f1a; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1rem; flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .chat-send:hover { background: #8b1a2a; }
+</style>
+
+<!-- Bubble button -->
+<div id="chat-bubble" onclick="toggleChat()">
+  💬
+  <div class="notif">1</div>
+</div>
+
+<!-- Chat window -->
+<div id="chat-window">
+  <div class="chat-header">
+    <div class="chat-avatar">🌿</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">GreenCut Pro Assistant</div>
+      <div class="chat-header-status"><span class="status-dot"></span> Online — typically replies instantly</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="quick-replies" id="quick-replies"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Type a message…" onkeydown="if(event.key==='Enter') sendMessage()" />
+    <button class="chat-send" onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const SYSTEM_PROMPT = `You are a friendly, helpful customer service assistant for GreenCut Pro, a professional lawn care company. Keep responses concise (2-4 sentences max). Be warm, professional, and helpful.
+
+SERVICES & PRICING:
+- Lawn Mowing: From $45 (includes edging, bagging clippings)
+- Full Yard Cleanup: From $120 (leaf removal, debris hauling, trimming, edging)
+- Fertilization & Weed Control: From $85
+- Hedge & Shrub Trimming: From $65
+- Seasonal Seeding: From $100
+- Custom Package: Custom quote
+- Dog Waste Cleanup (One-Time): $25
+- Dog Waste Weekly Subscription: $18/visit (billed monthly, cancel anytime)
+- Lawn Mowing + Dog Waste Bundle: From $55
+- Lawn + Dog Waste Weekly Sub: $70/visit
+
+BOOKING: Customers book online at the website. They select a service, upload lawn photos, pick a date/time, and pay securely via Stripe. No payment is charged until after service is complete.
+
+SERVICE AREA & HOURS:
+- Serving Springfield and surrounding areas
+- Available Monday–Saturday, 8am–4pm
+- Response time: within 24 hours
+
+SUBSCRIPTIONS:
+- Weekly dog waste cleanup subscription: $18/visit, billed monthly
+- Cancel anytime, no contracts
+- Same crew every week
+- Multi-dog pricing: standard rate for 1-2 dogs, +$5/visit for 3 dogs, +$10/visit for 4+ dogs
+
+GENERAL:
+- Free estimates available
+- Photos help us give accurate quotes
+- Payment accepted: all major credit cards, Apple Pay
+- Contact: (555) 000-1234
+
+If a customer wants to book, direct them to scroll up and use the booking form. If asked something you don't know, offer to have the team follow up via phone at (555) 000-1234.`;
+
+  let chatHistory = [];
+  let isOpen = false;
+  let initialized = false;
+
+  const quickReplySuggestions = [
+    "What services do you offer?",
+    "How much is lawn mowing?",
+    "Tell me about dog waste cleanup",
+    "How do I book?",
+    "What areas do you serve?",
+    "How does the subscription work?"
+  ];
+
+  function toggleChat() {
+    isOpen = !isOpen;
+    const win = document.getElementById('chat-window');
+    win.classList.toggle('open', isOpen);
+    document.querySelector('#chat-bubble .notif').style.display = 'none';
+    if (isOpen && !initialized) {
+      initialized = true;
+      addBotMessage("Hi there! 👋 I'm the GreenCut Pro assistant. I can answer questions about our services, pricing, scheduling, and more. What can I help you with today?");
+      renderQuickReplies(quickReplySuggestions.slice(0, 4));
+    }
+    if (isOpen) setTimeout(() => document.getElementById('chat-input').focus(), 200);
+  }
+
+  function renderQuickReplies(options) {
+    const qr = document.getElementById('quick-replies');
+    qr.innerHTML = '';
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'qr-btn';
+      btn.textContent = opt;
+      btn.onclick = () => { qr.innerHTML = ''; handleUserMessage(opt); };
+      qr.appendChild(btn);
+    });
+  }
+
+  function addBotMessage(text) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.innerHTML = `<div class="msg-avatar">🌿</div><div class="msg-bubble">${text}</div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function addUserMessage(text) {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg user';
+    div.innerHTML = `<div class="msg-bubble">${text}</div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg bot'; div.id = 'typing-indicator';
+    div.innerHTML = `<div class="msg-avatar">🌿</div><div class="msg-bubble typing-bubble"><span></span><span></span><span></span></div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+  }
+
+  async function handleUserMessage(text) {
+    addUserMessage(text);
+    chatHistory.push({ role: 'user', content: text });
+    document.getElementById('quick-replies').innerHTML = '';
+    showTyping();
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: SYSTEM_PROMPT,
+          messages: chatHistory
+        })
+      });
+      const data = await res.json();
+      const reply = data.content && data.content[0] ? data.content[0].text : "I'm sorry, I had trouble connecting. Please call us at (555) 000-1234!";
+      hideTyping();
+      chatHistory.push({ role: 'assistant', content: reply });
+      addBotMessage(reply);
+
+      // Suggest follow-up quick replies contextually
+      const lower = text.toLowerCase();
+      if (lower.includes('book') || lower.includes('schedule')) {
+        renderQuickReplies(['What info do I need?', 'What times are available?', 'How does payment work?']);
+      } else if (lower.includes('dog') || lower.includes('poop') || lower.includes('waste')) {
+        renderQuickReplies(['How does the subscription work?', 'How much for 2 dogs?', 'Can I bundle with mowing?']);
+      } else if (lower.includes('price') || lower.includes('cost') || lower.includes('much')) {
+        renderQuickReplies(['Tell me about dog waste cleanup', 'How do I book?', 'Do you offer bundles?']);
+      } else {
+        renderQuickReplies(['How do I book?', 'What areas do you serve?', 'Tell me about subscriptions']);
+      }
+    } catch(e) {
+      hideTyping();
+      addBotMessage("Oops, I had a connection issue! Please call us directly at (555) 000-1234 and we'll be happy to help. 😊");
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    handleUserMessage(text);
+  }
+
+  // Expose to global scope
+  window.toggleChat = toggleChat;
+  window.sendMessage = sendMessage;
+})();
+</script>
