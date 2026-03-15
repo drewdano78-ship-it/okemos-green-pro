@@ -1364,7 +1364,7 @@ function resetForm() {
     <div id="admin-login" style="background:#fff;border-radius:20px;padding:2rem;box-shadow:0 4px 24px rgba(0,0,0,0.08);margin-top:2rem;max-width:380px;margin-left:auto;margin-right:auto;text-align:center;">
       <div style="font-size:2.5rem;margin-bottom:0.75rem;">⚙️</div>
       <h2 style="font-family:'Playfair Display',serif;color:#1a1a2e;margin-bottom:0.5rem;">Admin Login</h2>
-      <p style="color:#6b7a99;font-size:0.85rem;margin-bottom:1.5rem;">Demo password: <strong>admin123</strong></p>
+      <p style="color:#6b7a99;font-size:0.85rem;margin-bottom:1.5rem;">Enter your admin password to continue.</p>
       <input type="password" id="admin-pw" placeholder="Enter admin password" style="width:100%;padding:0.75rem 1rem;border:2px solid #e3edf8;border-radius:10px;font-family:'DM Sans',sans-serif;margin-bottom:1rem;outline:none;"/>
       <button onclick="adminLogin()" style="width:100%;padding:0.9rem;border-radius:50px;background:#1a1a2e;color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Enter Dashboard →</button>
     </div>
@@ -1601,12 +1601,33 @@ window.cancelSub = function(){ if(confirm('Cancel your weekly dog waste subscrip
 
 // ── ADMIN ──
 window.openAdminPortal = function(){ document.getElementById('admin-portal').style.display='block'; };
-window.adminLogin = function(){
-  if(document.getElementById('admin-pw').value==='admin123'){
-    document.getElementById('admin-login').style.display='none';
-    document.getElementById('admin-dash').style.display='block';
-    buildAdminDash();
-  } else alert('Incorrect password');
+window.adminLogin = async function(){
+  const pw = document.getElementById('admin-pw').value;
+  if(!pw) return;
+  const btn = document.querySelector('#admin-login button');
+  btn.disabled = true;
+  btn.textContent = 'Checking...';
+  try {
+    const res = await fetch('/.netlify/functions/admin-auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    });
+    if(res.ok){
+      document.getElementById('admin-login').style.display='none';
+      document.getElementById('admin-dash').style.display='block';
+      buildAdminDash();
+    } else {
+      const { error } = await res.json();
+      alert(error || 'Incorrect password');
+      btn.disabled = false;
+      btn.textContent = 'Enter Dashboard →';
+    }
+  } catch(err) {
+    alert('Login failed. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Enter Dashboard →';
+  }
 };
 
 const allBookings = [
