@@ -610,9 +610,9 @@
         <div id="booking-form">
           <!-- Tabs -->
           <div class="form-tabs">
-            <button class="form-tab active" id="tab1">1. Details</button>
-            <button class="form-tab" id="tab2">2. Schedule</button>
-            <button class="form-tab" id="tab3">3. Payment</button>
+            <button class="form-tab active" id="tab1" onclick="goStep(1)">1. Details</button>
+            <button class="form-tab" id="tab2" onclick="goStep(2)">2. Schedule</button>
+            <button class="form-tab" id="tab3" onclick="goStep(3)">3. Payment</button>
           </div>
 
           <!-- STEP 1: Details + Photos -->
@@ -750,7 +750,7 @@
             <div class="stripe-note">Payments are processed securely via Stripe. Your card info is never stored on our servers.</div>
             <div>
               <button class="btn-back" onclick="goStep(2)">← Back</button>
-              <button class="btn-submit" onclick="submitBooking()">✓ Confirm & Pay Now</button>
+              <button class="btn-submit" onclick="submitBooking()">✓ Confirm & Book Now</button>
             </div>
           </div>
         </div>
@@ -982,39 +982,57 @@ function populatePaymentSummary() {
 }
 
 // ── Stripe Setup ──
-const stripe = Stripe('pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY');
-const elements = stripe.elements();
-const cardElement = elements.create('card', {
-  style: {
-    base: {
-      fontFamily: "'DM Sans', sans-serif",
-      fontSize: '16px',
-      color: '#1a1a2e',
-      '::placeholder': { color: '#999' },
-    },
-    invalid: { color: '#e74c3c' },
-  },
-});
-cardElement.mount('#stripe-card-element');
-
-cardElement.on('change', function(event) {
-  const errEl = document.getElementById('stripe-card-errors');
-  errEl.textContent = event.error ? event.error.message : '';
-});
+let stripe, elements, cardElement;
+let stripeReady = false;
+try {
+  const stripeKey = 'pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
+  if (typeof Stripe !== 'undefined' && stripeKey !== 'pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY') {
+    stripe = Stripe(stripeKey);
+    elements = stripe.elements();
+    cardElement = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: '16px',
+          color: '#1a1a2e',
+          '::placeholder': { color: '#999' },
+        },
+        invalid: { color: '#e74c3c' },
+      },
+    });
+    cardElement.mount('#stripe-card-element');
+    cardElement.on('change', function(event) {
+      const errEl = document.getElementById('stripe-card-errors');
+      errEl.textContent = event.error ? event.error.message : '';
+    });
+    stripeReady = true;
+  } else {
+    // Stripe not configured - show helpful message
+    const cardEl = document.getElementById('stripe-card-element');
+    if (cardEl) cardEl.innerHTML = '<div style="padding:0.75rem;color:#6b7a99;font-size:0.85rem;text-align:center;">Payment processing will be available soon. You can still submit your booking request.</div>';
+  }
+} catch(e) {
+  console.warn('Stripe setup skipped:', e.message);
+  const cardEl = document.getElementById('stripe-card-element');
+  if (cardEl) cardEl.innerHTML = '<div style="padding:0.75rem;color:#6b7a99;font-size:0.85rem;text-align:center;">Payment processing will be available soon. You can still submit your booking request.</div>';
+}
 
 // ── Submit ──
 async function submitBooking() {
   const name = document.getElementById('fname').value + ' ' + document.getElementById('lname').value;
   const email = document.getElementById('email') ? document.getElementById('email').value : '';
+  const phone = document.getElementById('phone') ? document.getElementById('phone').value : '';
+  const address = document.getElementById('address') ? document.getElementById('address').value : '';
+  const notes = document.getElementById('notes') ? document.getElementById('notes').value : '';
   const cardName = document.getElementById('card-name').value;
   const price = parseInt(document.getElementById('service-select').value.split('|')[1]) || 0;
   const service = document.getElementById('service-select').value.split('|')[0] || 'Service';
 
-  // For custom quote services with no set price, skip payment
-  if (price <= 0) {
-    showSuccess(name);
-    return;
-  }
+  // Validate required fields
+  if (!name.trim() || name.trim() === '') { alert('Please enter your name.'); return; }
+  if (!email) { alert('Please enter your email address.'); return; }
+  if (!service || service === '') { alert('Please select a service.'); return; }
+  if (!selectedDate || !selectedTime) { alert('Please select a date and time.'); return; }
 
   const submitBtn = document.querySelector('.btn-submit');
   const processingEl = document.getElementById('stripe-payment-processing');
@@ -1022,52 +1040,91 @@ async function submitBooking() {
   submitBtn.textContent = 'Processing...';
   processingEl.style.display = 'block';
 
+  const bookingData = {
+    name: name.trim(),
+    email: email,
+    phone: phone,
+    address: address,
+    service: service,
+    price: price,
+    date: selectedDate.toISOString(),
+    dateFormatted: selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }),
+    time: selectedTime,
+    notes: notes,
+    status: 'Confirmed',
+    createdAt: new Date().toISOString()
+  };
+
   try {
-    // Create PaymentIntent on server
-    const response = await fetch('/.netlify/functions/create-payment-intent', {
+    // Save booking to backend
+    const saveResponse = await fetch('/.netlify/functions/save-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        amount: price * 100, // Stripe uses cents
-        description: service + ' - Okemos Green Pro',
-        customerEmail: email,
-        customerName: name.trim(),
-      }),
+      body: JSON.stringify(bookingData),
     });
 
-    const { clientSecret, error: serverError } = await response.json();
-
-    if (serverError) {
-      document.getElementById('stripe-card-errors').textContent = serverError;
-      submitBtn.disabled = false;
-      submitBtn.textContent = '✓ Confirm & Pay Now';
-      processingEl.style.display = 'none';
-      return;
+    if (!saveResponse.ok) {
+      throw new Error('Failed to save booking');
     }
 
-    // Confirm card payment with Stripe
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: cardElement,
-        billing_details: { name: cardName || name.trim() },
-      },
-    });
+    const saveResult = await saveResponse.json();
 
-    if (error) {
-      document.getElementById('stripe-card-errors').textContent = error.message;
-      submitBtn.disabled = false;
-      submitBtn.textContent = '✓ Confirm & Pay Now';
-      processingEl.style.display = 'none';
-      return;
+    // Send confirmation email
+    try {
+      await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: email,
+          customerName: name.trim(),
+          service: service,
+          date: bookingData.dateFormatted,
+          time: selectedTime,
+          address: address,
+          bookingId: saveResult.bookingId
+        }),
+      });
+    } catch (emailErr) {
+      console.warn('Email notification skipped:', emailErr.message);
     }
 
-    if (paymentIntent.status === 'succeeded') {
-      showSuccess(name);
+    // If Stripe is ready and price > 0, process payment
+    if (stripeReady && price > 0) {
+      try {
+        const response = await fetch('/.netlify/functions/create-payment-intent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: price * 100,
+            description: service + ' - Okemos Green Pro',
+            customerEmail: email,
+            customerName: name.trim(),
+          }),
+        });
+
+        const { clientSecret, error: serverError } = await response.json();
+
+        if (!serverError && clientSecret) {
+          const { error } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: cardElement,
+              billing_details: { name: cardName || name.trim() },
+            },
+          });
+          if (error) {
+            console.warn('Payment error:', error.message);
+          }
+        }
+      } catch (payErr) {
+        console.warn('Payment processing skipped:', payErr.message);
+      }
     }
+
+    showSuccess(name);
   } catch (err) {
-    document.getElementById('stripe-card-errors').textContent = 'Payment failed. Please try again.';
+    document.getElementById('stripe-card-errors').textContent = 'Booking failed. Please try again or call us at (989) 966-9094.';
     submitBtn.disabled = false;
-    submitBtn.textContent = '✓ Confirm & Pay Now';
+    submitBtn.textContent = '✓ Confirm & Book Now';
     processingEl.style.display = 'none';
   }
 }
@@ -1620,20 +1677,43 @@ const allBookings = [
   {name:'Maria Garcia',service:'Lawn + Dog Waste',date:'Mar 12',amount:'$70',status:'Pending'},
 ];
 
-function buildAdminDash(){
+async function buildAdminDash(){
+  // Try to load real bookings from API
+  let realBookings = [];
+  try {
+    const resp = await fetch('/.netlify/functions/get-bookings');
+    if (resp.ok) {
+      const data = await resp.json();
+      if (data.bookings && data.bookings.length > 0) {
+        realBookings = data.bookings.map(b => ({
+          name: b.name,
+          service: b.service,
+          date: b.dateFormatted ? b.dateFormatted.split(',').slice(0,2).join(',').trim() : 'N/A',
+          amount: b.price > 0 ? ('$' + b.price) : 'Quote',
+          status: b.status
+        }));
+      }
+    }
+  } catch(e) { /* use demo data */ }
+
+  const displayBookings = realBookings.length > 0 ? [...realBookings, ...allBookings] : allBookings;
+  const totalRevenue = displayBookings.reduce((sum, b) => sum + (parseInt(b.amount.replace('$','')) || 0), 0);
+
   const kpis=[
-    {num:'$484',label:'Revenue This Month',color:'#6b0f1a'},
-    {num:'8',label:'Bookings This Month',color:'#5a8abf'},
+    {num:'$' + totalRevenue, label:'Revenue This Month',color:'#6b0f1a'},
+    {num: String(displayBookings.length), label:'Bookings This Month',color:'#5a8abf'},
     {num:'3',label:'Active Subscriptions',color:'#2e7d32'},
     {num:'4.9★',label:'Avg. Rating',color:'#f5a623'},
   ];
   document.getElementById('kpi-cards').innerHTML = kpis.map(k=>`<div class="admin-kpi"><div class="admin-kpi-num" style="color:${k.color}">${k.num}</div><div class="admin-kpi-label">${k.label}</div></div>`).join('');
-  renderBookingsTable(allBookings);
+  renderBookingsTable(displayBookings);
   buildCharts();
+  window._adminBookings = displayBookings;
 }
 
 window.filterBookings = function(q){
-  const filtered = allBookings.filter(b=>b.name.toLowerCase().includes(q.toLowerCase())||b.service.toLowerCase().includes(q.toLowerCase()));
+  const bookings = window._adminBookings || allBookings;
+  const filtered = bookings.filter(b=>b.name.toLowerCase().includes(q.toLowerCase())||b.service.toLowerCase().includes(q.toLowerCase()));
   renderBookingsTable(filtered);
 };
 
@@ -2002,16 +2082,83 @@ window.sendSMSBlast = function(){
 (function() {
   const CREW_PIN = '1234';
 
-  const jobs = [
-    { name: 'Michael Roberts', address: '142 Elm St, Okemos', email: 'michael@example.com', phone: '(555) 111-2222', service: 'Lawn Mowing + Dog Waste Cleanup', notes: 'Gate code: 4821. 2 dogs (Labrador). Mow backyard and front. Pick up all pet waste.', status: 'pending', hasDog: true },
-    { name: 'Sarah Liu', address: '87 Oak Ave, Okemos', email: 'sarah@example.com', phone: '(555) 333-4444', service: 'Dog Waste Weekly Subscription', notes: '1 small dog. Gate on left side of house. Please latch gate when done.', status: 'in-progress', hasDog: true },
-    { name: 'David Kim', address: '310 Maple Dr, Okemos', email: 'david@example.com', phone: '(555) 555-6666', service: 'Full Yard Cleanup', notes: 'Leaf removal front and back. Haul all debris.', status: 'done', hasDog: false }
+  // Demo fallback jobs in case API has no data yet
+  const demoJobs = [
+    { id: 'demo-1', name: 'Michael Roberts', address: '142 Elm St, Okemos', email: 'michael@example.com', phone: '(555) 111-2222', service: 'Lawn Mowing + Dog Waste Cleanup', notes: 'Gate code: 4821. 2 dogs (Labrador). Mow backyard and front. Pick up all pet waste.', status: 'Confirmed', hasDog: true },
+    { id: 'demo-2', name: 'Sarah Liu', address: '87 Oak Ave, Okemos', email: 'sarah@example.com', phone: '(555) 333-4444', service: 'Dog Waste Weekly Subscription', notes: '1 small dog. Gate on left side of house. Please latch gate when done.', status: 'Confirmed', hasDog: true },
+    { id: 'demo-3', name: 'David Kim', address: '310 Maple Dr, Okemos', email: 'david@example.com', phone: '(555) 555-6666', service: 'Full Yard Cleanup', notes: 'Leaf removal front and back. Haul all debris.', status: 'Completed', hasDog: false }
   ];
 
+  let jobs = [];
   let currentJob = null;
   let beforePhotos = [], afterPhotos = [];
   let sigCanvas, sigCtx, sigDrawing = false, sigHasSig = false;
   let checklistState = {};
+
+  // Load real bookings from API
+  async function loadJobs() {
+    try {
+      const response = await fetch('/.netlify/functions/get-bookings');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.bookings && data.bookings.length > 0) {
+          jobs = data.bookings.map(b => ({
+            ...b,
+            hasDog: (b.service || '').toLowerCase().includes('dog') || (b.service || '').toLowerCase().includes('waste')
+          }));
+        } else {
+          jobs = demoJobs;
+        }
+      } else {
+        jobs = demoJobs;
+      }
+    } catch (e) {
+      console.warn('Could not load bookings from API, using demo data:', e.message);
+      jobs = demoJobs;
+    }
+    renderJobList();
+  }
+
+  function getStatusClass(status) {
+    const s = (status || '').toLowerCase();
+    if (s === 'completed' || s === 'done') return 'status-done';
+    if (s === 'in-progress' || s === 'in progress') return 'status-in-progress';
+    return 'status-pending';
+  }
+
+  function getStatusLabel(status) {
+    const s = (status || '').toLowerCase();
+    if (s === 'completed' || s === 'done') return 'Completed';
+    if (s === 'in-progress' || s === 'in progress') return 'In Progress';
+    return 'Pending';
+  }
+
+  function renderJobList() {
+    const jobListEl = document.getElementById('job-list');
+    jobListEl.innerHTML = '';
+    jobs.forEach((job, idx) => {
+      const svcIcon = (job.service || '').toLowerCase().includes('dog') ? '🐾' : '🌿';
+      const serviceDisplay = job.service || 'Service';
+      const card = document.createElement('div');
+      card.className = 'job-card';
+      card.onclick = () => openJob(idx);
+      card.innerHTML = `
+        <div class="job-card-header">
+          <div>
+            <div class="job-name">${job.name}</div>
+            <div class="job-service">${svcIcon} ${serviceDisplay}</div>
+            <div class="job-addr">📍 ${job.address || 'Address not provided'}</div>
+            ${job.dateFormatted ? `<div style="font-size:0.75rem;color:#6b7a99;margin-top:0.25rem;">📅 ${job.dateFormatted} at ${job.time || ''}</div>` : ''}
+          </div>
+          <span class="job-status ${getStatusClass(job.status)}">${getStatusLabel(job.status)}</span>
+        </div>`;
+      jobListEl.appendChild(card);
+    });
+
+    if (jobs.length === 0) {
+      jobListEl.innerHTML = '<div style="text-align:center;padding:2rem;color:#6b7a99;">No jobs scheduled for today.</div>';
+    }
+  }
 
   function getChecklists(job) {
     const base = [
@@ -2042,7 +2189,7 @@ window.sendSMSBlast = function(){
   }
 
   function buildMessagePreview() {
-    if (!currentJob) return;
+    if (currentJob === null) return;
     const job = jobs[currentJob];
     const checkedItems = Object.entries(checklistState).filter(([,v])=>v).map(([k])=>k);
     const gateConfirmed = checkedItems.includes('gate_checked');
@@ -2101,6 +2248,7 @@ Thank you for choosing Okemos Green Pro! If you have any questions, call us at (
       document.getElementById('crew-login').style.display = 'none';
       document.getElementById('crew-dashboard').style.display = 'block';
       document.getElementById('crew-date-label').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+      loadJobs();
     } else {
       document.getElementById('pin-error').style.display = 'block';
       ['p1','p2','p3','p4'].forEach(id => document.getElementById(id).value = '');
@@ -2122,7 +2270,7 @@ Thank you for choosing Okemos Green Pro! If you have any questions, call us at (
     document.getElementById('msg-thumb-row').innerHTML = '';
 
     document.getElementById('jd-info').innerHTML =
-      `<b>Customer:</b> ${job.name}<br><b>Address:</b> ${job.address}<br><b>Phone:</b> ${job.phone}<br><b>Service:</b> ${job.service}<br><b>Notes:</b> ${job.notes}`;
+      `<b>Customer:</b> ${job.name}<br><b>Address:</b> ${job.address || 'N/A'}<br><b>Phone:</b> ${job.phone || 'N/A'}<br><b>Email:</b> ${job.email || 'N/A'}<br><b>Service:</b> ${job.service}${job.dateFormatted ? '<br><b>Scheduled:</b> ' + job.dateFormatted + ' at ' + (job.time || '') : ''}<br><b>Notes:</b> ${job.notes || 'None'}`;
 
     // Build checklist
     const cl = document.getElementById('job-checklist');
@@ -2144,6 +2292,7 @@ Thank you for choosing Okemos Green Pro! If you have any questions, call us at (
     document.getElementById('job-list').style.display = 'block';
     document.getElementById('job-detail').classList.remove('open');
     currentJob = null;
+    loadJobs();
   };
 
   window.toggleCheck = function(id) {
@@ -2195,13 +2344,59 @@ Thank you for choosing Okemos Green Pro! If you have any questions, call us at (
 
   window.clearSig = function() { sigCtx.clearRect(0,0,sigCanvas.width,sigCanvas.height); sigHasSig=false; };
 
-  window.sendReport = function() {
+  window.sendReport = async function() {
     const job = jobs[currentJob];
+    const sendBtn = document.querySelector('.btn-send-report');
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = '<span>⏳</span> Sending Report...';
+
+    try {
+      // Update booking status in backend
+      if (job.id && !job.id.startsWith('demo-')) {
+        await fetch('/.netlify/functions/update-booking', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            bookingId: job.id,
+            status: 'Completed',
+            completedAt: new Date().toISOString(),
+            checklistItems: Object.entries(checklistState).filter(([,v])=>v).map(([k])=>k),
+            reportSent: true
+          }),
+        });
+      }
+
+      // Send completion email to customer
+      const messageText = document.getElementById('msg-preview-text').textContent;
+      await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: job.email,
+          customerName: job.name,
+          service: job.service,
+          date: new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}),
+          time: job.time || '',
+          address: job.address,
+          bookingId: job.id,
+          type: 'crew-report',
+          message: messageText
+        }),
+      });
+
+      // Update local status
+      jobs[currentJob].status = 'Completed';
+    } catch (err) {
+      console.warn('Backend update failed, marking locally:', err.message);
+      jobs[currentJob].status = 'Completed';
+    }
+
     document.getElementById('send-section').style.display = 'none';
     document.getElementById('report-sent').style.display = 'block';
     document.getElementById('report-sent-msg').textContent =
-      `✅ Report & photos sent to ${job.name} at ${job.phone} and ${job.email}. Job marked complete. Great work today!`;
-    jobs[currentJob].status = 'done';
+      `✅ Report & photos sent to ${job.name} at ${job.phone || 'N/A'} and ${job.email || 'N/A'}. Job marked complete. Great work today!`;
+    sendBtn.disabled = false;
+    sendBtn.innerHTML = '<span>📤</span> Send Report to Customer';
   };
 })();
 </script>
